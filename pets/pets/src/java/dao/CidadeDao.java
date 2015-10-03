@@ -20,9 +20,9 @@ import java.util.logging.Logger;
  */
 public class CidadeDao {
 
-    Cidade cidade;
-    Conexao conexao;
-    ArrayList<Cidade> listaCidades;
+    private Cidade cidade;
+    private Conexao conexao;
+    private ArrayList<Cidade> listaCidades;
 
     public CidadeDao() {
         this.cidade = new Cidade();
@@ -34,7 +34,7 @@ public class CidadeDao {
 
         try {
 
-            String query = "SELECT * FROM cidade WHERE ufEstado= ? ORDER BY nome";
+            String query = "SELECT * FROM cidade WHERE ufEstado= ? ORDER BY nome;";
             this.conexao.preparar(query);
             this.conexao.getPs().setString(1, ufCidade.getEstadoUf().getUf());
             ResultSet resultado = this.conexao.executeQuery();
@@ -52,29 +52,34 @@ public class CidadeDao {
 
         return this.listaCidades;
     }
-    
-    public Cidade buscarcidade(Cidade cidade)
-    {
-         try {
 
-            String query = "SELECT * FROM cidade WHERE id= ? ORDER BY nome";
+    public Cidade buscarcidade(Cidade cidade) {
+        try {
+           
+
+            String query = "SELECT * FROM cidade WHERE id= ?;";
             this.conexao.preparar(query);
-            this.conexao.getPs().setString(1, cidade.getEstadoUf().getUf());
+            this.conexao.getPs().setInt(1, cidade.getId());
             ResultSet resultado = this.conexao.executeQuery();
-         }catch(SQLException ex)
-         {
-            
-         }
-         
-          return new Cidade();
+
+            if (resultado != null && resultado.next()) {
+                cidade.setNome(resultado.getString("nome"));
+                cidade.setId(resultado.getInt("id"));
+                cidade.setEstadoUf(new Estado(resultado.getString("ufEstado")));
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Erro ao obter dados: " + ex.toString());
+        }
+
+        return cidade;
     }
-    
 
     public void inserirCidade(Cidade cidade) {
-        
+
         String query = "INSERT INTO cidade (nome, `ufEstado`) "
                 + "	VALUES (?, ?);";
-        
+
         this.conexao.preparar(query);
         try {
             this.conexao.getPs().setString(1, cidade.getNome());
@@ -82,7 +87,7 @@ public class CidadeDao {
 
             if (this.conexao.executeUpdate()) {
                 System.out.println("Inserido!");
-               
+
             } else {
                 System.out.println("Faiou!");
             }
@@ -90,39 +95,37 @@ public class CidadeDao {
             Logger.getLogger(CidadeDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void deletarCidade(Cidade cidade)
-    {
-         String query = "delete FROM cidade WHERE id=?";
-       
+
+    public void deletarCidade(Cidade cidade) {
+        String query = "delete FROM cidade WHERE id=?;";
+
         this.conexao.preparar(query);
         try {
             this.conexao.getPs().setInt(1, cidade.getId());
-            
+
             if (this.conexao.executeUpdate()) {
                 System.out.println("deletado!");
-               
+
             } else {
                 System.out.println("Faiou!");
             }
         } catch (SQLException ex) {
             Logger.getLogger(CidadeDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
+
     }
-    
-    public void updateCidade(Cidade cidade)
-    {
-         String query = "UPDATE cidade SET nome=?, ufEstado=?  WHERE id=?";
-       
+
+    public void updateCidade(Cidade cidade) {
+        String query = "UPDATE cidade SET nome=?, ufEstado=?  WHERE id=?;";
+
         this.conexao.preparar(query);
         try {
             this.conexao.getPs().setString(1, cidade.getNome());
             this.conexao.getPs().setString(1, cidade.getEstadoUf().getUf());
-            
+
             if (this.conexao.executeUpdate()) {
                 System.out.println("deletado!");
-               
+
             } else {
                 System.out.println("Faiou!");
             }
