@@ -6,6 +6,8 @@
 package beans;
 
 import conexao.Conexao;
+import dao.CidadeDao;
+import dao.EnderecoDao;
 import dao.PessoaDao;
 import entidades.Endereco;
 import entidades.Login;
@@ -32,6 +34,8 @@ public class Autenticacao {
     private String msg;
     private Conexao conexao;
     private PessoaDao pessoaDao;
+    private CidadeDao cidadeDao;
+    private EnderecoDao enderecoDao;
 
     public Autenticacao() {
         this.login = new Login();
@@ -39,6 +43,8 @@ public class Autenticacao {
         this.msg = "";
         this.conexao = Conexao.getInstancia();
         this.pessoaDao = new PessoaDao();
+        this.enderecoDao = new EnderecoDao();
+        this.cidadeDao = new CidadeDao();
     }
     //metodo para efetuar o login no sistema
     public String logar(String s) {
@@ -87,6 +93,8 @@ public class Autenticacao {
     private void buscarPessoa()  {
    
         this.usuario = this.pessoaDao.buscarDadosPessoa(this.usuario);
+        this.usuario.setIdEndereco(this.enderecoDao.buscarEndereco(this.usuario.getIdEndereco()));
+        this.usuario.getIdEndereco().setIdCidade(this.cidadeDao.buscarcidade(this.usuario.getIdEndereco().getIdCidade()));
 
     }
     

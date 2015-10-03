@@ -18,93 +18,64 @@ import java.util.logging.Logger;
  */
 public class PessoaDao {
 
-    private Pessoa pessoaEntidade;
+   
     private Conexao conexao;
 
     public PessoaDao() {
-        this.pessoaEntidade = new Pessoa();
+        
         this.conexao = Conexao.getInstancia();
     }
+//metodo para inserir registros na tabela pessoa 
 
-    public Pessoa buscarDadosPessoa(Pessoa idPessoa) {
+    public void cadastroPessoa(Pessoa pessoaEntidade) {
+
+        // String sqlPessoa = "INSERT INTO pessoa VALUES(default" + ",'" + this.pessoa.getNome() + "','" + this.pessoa.getEmail() + "'," + idEndereco + ");";
+        String sqlPessoa = "INSERT INTO pessoa (nome, email, `idEndereco`)"
+                + "VALUES (?, ?, ?);";
+
+        this.conexao.prepararAI(sqlPessoa);
+
+        try {
+            this.conexao.getPs().setString(1,pessoaEntidade.getNome());
+            this.conexao.getPs().setString(2, pessoaEntidade.getEmail());
+            this.conexao.getPs().setInt(3, pessoaEntidade.getIdEndereco().getId());
+
+            if (this.conexao.executeUpdate()) {
+                System.out.println("Inserido!");
+                pessoaEntidade.setId(this.conexao.getAutoIncrement());
+            } else {
+                System.out.println("Faiou ao cadastrar pessoa!");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Pessoa buscarDadosPessoa(Pessoa pessoaEntidade) {
         String sqlPessoa = "select * from pessoa WHERE id=? ;";
         this.conexao.preparar(sqlPessoa);
 
         try {
-            this.conexao.getPs().setInt(1, idPessoa.getId());
+            this.conexao.getPs().setInt(1, pessoaEntidade.getId());
             ResultSet resultado = this.conexao.executeQuery();
-            
-            if (resultado != null && resultado.next()) {
-            this.pessoaEntidade.setNome(resultado.getString("nome"));
-            this.pessoaEntidade.setId(Integer.parseInt(resultado.getString("id")));
-            this.pessoaEntidade.setEmail(resultado.getString("email"));
-            this.pessoaEntidade.setIdEndereco(new Endereco(resultado.getInt("idEndereco")));
-        }
 
-        this.buscarEndereco(pessoaEntidade.getIdEndereco());
-        this.buscarCidade(pessoaEntidade.getIdEndereco().getIdCidade());
-        
-        
+            if (resultado != null && resultado.next()) {
+                pessoaEntidade.setNome(resultado.getString("nome"));
+                pessoaEntidade.setId(Integer.parseInt(resultado.getString("id")));
+                pessoaEntidade.setEmail(resultado.getString("email"));
+                pessoaEntidade.setIdEndereco(new Endereco(resultado.getInt("idEndereco")));
+            }
+
+
         } catch (SQLException ex) {
             Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ResultSet resultado = this.conexao.executeQuery();
-
-        
 
         return pessoaEntidade;
     }
 
-    private void buscarEndereco(Endereco idEndereco)  {
-        String sqlEndereco = "select * from endereco WHERE id=?;";
-        this.conexao.preparar(sqlEndereco);
 
-        try {
-            this.conexao.getPs().setInt(1, idEndereco.getId());
-            ResultSet resultado = conexao.executeQuery();
 
-            if (resultado != null && resultado.next()) {
-                this.pessoaEntidade.getIdEndereco().setBairro(resultado.getString("bairro"));
-                this.pessoaEntidade.getIdEndereco().setLogradouro(resultado.getString("logradouro"));
-                this.pessoaEntidade.getIdEndereco().setCep(resultado.getString("cep"));
-                this.pessoaEntidade.getIdEndereco().setComplemento(resultado.getString("complemento"));
-                this.pessoaEntidade.getIdEndereco().setNumero(resultado.getInt("numero"));
-                this.pessoaEntidade.getIdEndereco().setIdCidade(new Cidade(resultado.getInt("idCidade")));
-
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, "erro ao verificar telefone", ex);
-        }
-
-    }
-
-    private void buscarNumerosTelefone(int idPessoa) {
-
-    }
-
-    private void buscarCidade(Cidade idCidade) {
-
-        String sqlCidade = "select * from cidade WHERE id=?;";
-        this.conexao.preparar(sqlCidade);
-
-        try {
-            this.conexao.getPs().setInt(1, idCidade.getId());
-            ResultSet resultado = this.conexao.executeQuery();
-
-            if (resultado != null && resultado.next()) {
-
-                idCidade.setId(idCidade.getId());
-                idCidade.setNome(resultado.getString("nome"));
-                idCidade.setEstadoUf(new Estado(resultado.getString("ufEstado")));
-
-                this.pessoaEntidade.getIdEndereco().setIdCidade(idCidade);
-            }
-            }catch (SQLException ex) {
-            Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        
-    }
+    
 
 }
