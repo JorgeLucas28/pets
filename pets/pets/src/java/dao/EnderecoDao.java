@@ -20,12 +20,12 @@ import java.util.logging.Logger;
 public class EnderecoDao {
 
     private Conexao conexao;
-    private int idGerado;
+   
 
     public EnderecoDao() {
 
         this.conexao = Conexao.getInstancia();
-        this.idGerado = 0;
+       
     }
 
     public Endereco buscarEndereco(Endereco enderecoEntidade) {
@@ -54,7 +54,7 @@ public class EnderecoDao {
 
     }
 
-    private void inserirEndereco(Endereco enderecoEntidade) {
+    private Endereco inserirEndereco(Endereco enderecoEntidade) {
 
         String SqlEndereco = "INSERT INTO endereco (logradouro, bairro, `idCidade`, cep, complemento, numero)"
                 + "	VALUES (?, ?, ?, ?, ?, ?);";
@@ -69,7 +69,7 @@ public class EnderecoDao {
             this.conexao.getPs().setInt(6, enderecoEntidade.getNumero());
             if (this.conexao.executeUpdate()) {
 
-                this.idGerado = this.conexao.getAutoIncrement();
+                enderecoEntidade.setId(this.conexao.getAutoIncrement());
                 System.out.println("Inserido!");
 
             } else {
@@ -78,6 +78,8 @@ public class EnderecoDao {
         } catch (SQLException ex) {
             Logger.getLogger(EnderecoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        return enderecoEntidade;
     }
 
     private void updateEndereco(Endereco enderecoEntidade) {
@@ -106,7 +108,7 @@ public class EnderecoDao {
         }
     }
 
-    public void deletarCidade(Endereco enderecoEntidade) {
+    public void deletarEndereco(Endereco enderecoEntidade) {
         String query = "delete FROM endereco WHERE id=?;";
 
         this.conexao.preparar(query);
@@ -125,7 +127,5 @@ public class EnderecoDao {
 
     }
 
-    public int getIdGerado() {
-        return idGerado;
-    }
+   
 }

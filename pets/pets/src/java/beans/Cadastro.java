@@ -6,7 +6,11 @@
 package beans;
 
 import conexao.Conexao;
+import dao.CidadeDao;
+import dao.EstadoDao;
+import entidades.Cidade;
 import entidades.Endereco;
+import entidades.Estado;
 import entidades.Login;
 import entidades.Pessoa;
 import entidades.Telefone;
@@ -22,7 +26,7 @@ import javax.faces.bean.RequestScoped;
  * @author Jodi
  */
 @ManagedBean(name = "cadastro")
-@RequestScoped
+
 public class Cadastro {
 
     private Pessoa pessoa;
@@ -30,6 +34,10 @@ public class Cadastro {
     private Login login;
     private Telefone telefone;
     private Conexao conexao;
+    
+    private Cidade cidadeEntidade;
+    private EstadoDao estadoDao;
+    private CidadeDao cidadeDao;
 
     private String msgEmail;
     private String msgTelefone;
@@ -41,6 +49,11 @@ public class Cadastro {
         this.login = new Login();
         this.telefone = new Telefone();
         this.conexao = Conexao.getInstancia();
+        
+        this.cidadeEntidade = new Cidade();
+        
+        this.cidadeDao = new CidadeDao();
+        this.estadoDao = new EstadoDao();
 
         this.msgEmail = "";
 //        this.msgEmail = "O email digitado ja existe";
@@ -50,7 +63,7 @@ public class Cadastro {
 // metodo para efetuar o cadastro de um novo usuario
 
     public String cadastrar() {
-
+String g = "";
         if (this.VerificaEmail()) {
             this.msgEmail = "O email digitado ja existe";
             return "erro";
@@ -78,7 +91,7 @@ public class Cadastro {
         try {
             this.conexao.getPs().setString(1, this.endereco.getLogradouro());
             this.conexao.getPs().setString(2, this.endereco.getBairro());
-            this.conexao.getPs().setInt(3, this.endereco.getIdCidade().getId());
+            this.conexao.getPs().setInt(3, this.cidadeEntidade.getId());
             this.conexao.getPs().setString(4, this.endereco.getCep());
             this.conexao.getPs().setString(5, this.endereco.getComplemento());
             this.conexao.getPs().setInt(6, this.endereco.getNumero());
@@ -126,7 +139,7 @@ public class Cadastro {
         String senha = "sha1('" + this.login.getSenha() + "')";
 
         // String sqlLogin = "INSERT INTO login VALUES(sha1('" + this.login.getSenha() + "')," + 0 + ',' + idPessoa + ");";
-        String sqlLogin = "INSERT INTO login (senha, `flagAdmim`, `idPessoa`)"
+        String sqlLogin = "INSERT INTO login (senha, `flagAdmin`, `idPessoa`)"
                 + "VALUES (?, ?, ?);";
 
         this.conexao.preparar(sqlLogin);
@@ -217,5 +230,29 @@ public class Cadastro {
     public Telefone getTelefone() {
         return this.telefone;
     }
+
+    public Cidade getCidadeEntidade() {
+        return cidadeEntidade;
+    }
+
+    
+
+    public EstadoDao getEstadoDao() {
+        return estadoDao;
+    }
+
+    public void setEstadoDao(EstadoDao estadoDao) {
+        this.estadoDao = estadoDao;
+    }
+
+    public CidadeDao getCidadeDao() {
+        return cidadeDao;
+    }
+
+    public void setCidadeDao(CidadeDao cidadeDao) {
+        this.cidadeDao = cidadeDao;
+    }
+    
+    
 
 }

@@ -39,6 +39,9 @@ public class Login implements Serializable {
     @JoinColumn(name = "idPessoa", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Pessoa idPessoa;
+    
+    public static final int ADMINISTRADOR = 1;
+    public static final int USUARIO = 0;
 
     public Login() {
     }

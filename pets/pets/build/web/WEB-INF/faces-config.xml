@@ -28,12 +28,16 @@
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>ok</from-outcome>
+            <from-outcome>usuario</from-outcome>
             <to-view-id>/usuario/principal.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>cadastrar</from-outcome>
             <to-view-id>/cadastro.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>admin</from-outcome>
+            <to-view-id>/admin/principal.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -65,6 +69,10 @@
             <from-outcome>sair</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>editarPerfil</from-outcome>
+            <to-view-id>/usuario/editarPerfil.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/usuario/publicacao.xhtml</from-view-id>
@@ -79,6 +87,34 @@
         <navigation-case>
             <from-outcome>sair</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/usuario/editarPerfil.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>perfil</from-outcome>
+            <to-view-id>/usuario/perfil.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/admin/principal.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>perfil</from-outcome>
+            <to-view-id>/admin/perfil.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/admin/editarPerfil.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>perfil</from-outcome>
+            <to-view-id>/admin/perfil.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/admin/perfil.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>principal</from-outcome>
+            <to-view-id>/admin/principal.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

@@ -23,7 +23,7 @@ import beans.Autenticacao;
  *
  * @author fredsoncosta
  */
-public class FiltroValidacaoSessao implements Filter {
+public class FiltroValidacaoSessaoAdmin implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -35,7 +35,7 @@ public class FiltroValidacaoSessao implements Filter {
             ServletResponse response, FilterChain chain) {
         HttpServletRequest req = (HttpServletRequest) request;
         Autenticacao user = (Autenticacao) req.getSession().
-                getAttribute("Usuario");
+                getAttribute("Admin");
         try {
             if (user != null) {
                 chain.doFilter(request, response);
@@ -45,7 +45,7 @@ public class FiltroValidacaoSessao implements Filter {
                                 getContextPath() + "/faces/login.xhtml");
             }
         } catch (IOException | ServletException ex) {
-            Logger.getLogger(FiltroValidacaoSessao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FiltroValidacaoSessaoAdmin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

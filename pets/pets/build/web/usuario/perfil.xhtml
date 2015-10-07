@@ -12,9 +12,10 @@ and open the template in the editor.
     <ui:composition template="templateUsuario.xhtml">
         <ui:define name="corpo">
             <h1>Perfil</h1>
-            <h:form>
-                <b:well class="center">
-                    <fieldset>
+
+            <b:well class="center">
+                <fieldset>
+                    <h:form>
                         <legend>dados do usuário</legend>
                         <h:panelGrid columns="3">
 
@@ -29,38 +30,46 @@ and open the template in the editor.
                             <h:outputLabel>bairro:</h:outputLabel>
                             <h:outputLabel></h:outputLabel>
                             <h:outputLabel id="bairro" value="#{autenticar.usuario.idEndereco.bairro}"></h:outputLabel>  
-                            
+
                             <h:outputLabel>logradouro:</h:outputLabel>
                             <h:outputLabel></h:outputLabel>
                             <h:outputLabel id="logradouro" value="#{autenticar.usuario.idEndereco.logradouro}"></h:outputLabel>
-                            
+
                             <h:outputLabel>cep:</h:outputLabel>
                             <h:outputLabel></h:outputLabel>
                             <h:outputLabel id="cep" value="#{autenticar.usuario.idEndereco.cep}"></h:outputLabel>
-                            
+
                             <h:outputLabel>complemento:</h:outputLabel>
                             <h:outputLabel></h:outputLabel>
                             <h:outputLabel id="complemento" value="#{autenticar.usuario.idEndereco.complemento}"></h:outputLabel>
-                            
+
                             <h:outputLabel>numero:</h:outputLabel>
                             <h:outputLabel></h:outputLabel>
                             <h:outputLabel id="numero" value="#{autenticar.usuario.idEndereco.numero}"></h:outputLabel>
-                            
-                            
+
+
                             <h:outputLabel>cidade:</h:outputLabel>
                             <h:outputLabel></h:outputLabel>
                             <h:outputLabel id="cidade" value="#{autenticar.usuario.idEndereco.idCidade.nome}"></h:outputLabel>
-                            
+
                             <h:outputLabel>estado:</h:outputLabel>
                             <h:outputLabel></h:outputLabel>
                             <h:outputLabel id="estado" value="#{autenticar.usuario.idEndereco.idCidade.estadoUf.uf}"></h:outputLabel>
-                            
-                            
+
+
 
                         </h:panelGrid>
-                    </fieldset>
-                </b:well>
-            </h:form>
+                    </h:form>
+                </fieldset>
+
+                <h:form>
+                    <b:commandButton value="editar" action="#{editarPerfil.idEditar(autenticar.usuario.id)}" icon="glyphicon glyphicon-pencil" look="info"/>    
+                     
+                </h:form>
+            </b:well>
+
+
+
 
         </ui:define>
     </ui:composition>

@@ -33,6 +33,8 @@ public class CidadeDao {
     public ArrayList<Cidade> buscarListaCidades(Cidade cidadeEntidade) {
 
         try {
+            
+           
 
             String query = "SELECT * FROM cidade WHERE ufEstado= ? ORDER BY nome;";
             this.conexao.preparar(query);

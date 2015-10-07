@@ -52,9 +52,8 @@ public class Cidade implements Serializable {
     private Collection<Endereco> enderecoCollection;
 
     public Cidade() {
-        this.enderecoCollection = new ArrayList<Endereco>();
         this.estadoUf = new Estado();
-        this.nome = "";
+        
         
     }
 

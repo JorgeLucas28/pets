@@ -6,7 +6,7 @@
 package dao;
 
 import conexao.Conexao;
-import entidades.Cidade;
+
 import entidades.Estado;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,7 +37,7 @@ public class EstadoDao {
     public ArrayList<Estado> getListaEstados() throws ClassNotFoundException {
 
         try {
-
+            this.listaEstados = new ArrayList<>();
             String query = "SELECT * FROM estado ORDER BY nome";
             this.conexao.preparar(query);
             ResultSet resultado = this.conexao.executeQuery();

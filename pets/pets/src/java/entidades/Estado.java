@@ -43,6 +43,7 @@ public class Estado implements Serializable {
     private Collection<Cidade> cidadeCollection;
 
     public Estado() {
+        this.uf = "";
     }
 
     public Estado(String uf) {

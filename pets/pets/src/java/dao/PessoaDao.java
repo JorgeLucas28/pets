@@ -25,15 +25,15 @@ public class PessoaDao {
         
         this.conexao = Conexao.getInstancia();
     }
-//metodo para inserir registros na tabela pessoa 
-
-    public void cadastroPessoa(Pessoa pessoaEntidade) {
-
-        // String sqlPessoa = "INSERT INTO pessoa VALUES(default" + ",'" + this.pessoa.getNome() + "','" + this.pessoa.getEmail() + "'," + idEndereco + ");";
+    //insere os dados de um objeto pessoa no banco de dados e 
+    //retorna um objeto do tipo pessoa com o atributo id instanciado 
+    //com o valor do BD
+    public Pessoa inserirPessoa(Pessoa pessoaEntidade) {
+        
         String sqlPessoa = "INSERT INTO pessoa (nome, email, `idEndereco`)"
                 + "VALUES (?, ?, ?);";
 
-        this.conexao.prepararAI(sqlPessoa);
+        this.conexao.preparar(sqlPessoa);
 
         try {
             this.conexao.getPs().setString(1,pessoaEntidade.getNome());
@@ -49,8 +49,12 @@ public class PessoaDao {
         } catch (SQLException ex) {
             Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        return pessoaEntidade;
     }
-
+    //bunca as informações de um pessoa no BD
+    // e retorna um objeto do tipo pessoa 
+    //com todos os atributos instanciados
     public Pessoa buscarDadosPessoa(Pessoa pessoaEntidade) {
         String sqlPessoa = "select * from pessoa WHERE id=? ;";
         this.conexao.preparar(sqlPessoa);

@@ -2,15 +2,20 @@
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
-        <Node id="template/template.xhtml" x="690" y="347" zoom="true"/>
-        <Node id="login.xhtml" x="150" y="300" zoom="true"/>
-        <Node id="usuario/principal.xhtml" x="358" y="650" zoom="true"/>
+        <Node id="admin/editarPerfil.xhtml" x="-67" y="383" zoom="true"/>
         <Node id="index.xhtml" x="650" y="150" zoom="true"/>
-        <Node id="cadastro.xhtml" x="150" y="150" zoom="true"/>
-        <Node id="usuario/templateUsuario.xhtml" x="713" y="501" zoom="true"/>
+        <Node id="admin/principal.xhtml" x="-131" y="228" zoom="true"/>
+        <Node id="admin/perfil.xhtml" x="-148" y="344" zoom="true"/>
+        <Node id="usuario/templateUsuario.xhtml" x="1109" y="212" zoom="true"/>
         <Node id="usuario/publicacao.xhtml" x="400" y="150" zoom="true"/>
         <Node id="usuario/perfil.xhtml" x="400" y="300" zoom="true"/>
-        <Node id="template/templateUsuario.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="template/template.xhtml" x="1104" y="70" zoom="true"/>
+        <Node id="login.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="usuario/principal.xhtml" x="358" y="650" zoom="true"/>
+        <Node id="usuario/editarPerfil.xhtml" x="267" y="494" zoom="true"/>
+        <Node id="cadastro.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="admin/templateAdmin.xhtml" x="1106" y="115" zoom="true"/>
+        <Node id="template/templateUsuario.xhtml" x="1104" y="164" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

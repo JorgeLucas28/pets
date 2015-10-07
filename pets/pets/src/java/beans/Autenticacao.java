@@ -9,7 +9,6 @@ import conexao.Conexao;
 import dao.CidadeDao;
 import dao.EnderecoDao;
 import dao.PessoaDao;
-import entidades.Endereco;
 import entidades.Login;
 import entidades.Pessoa;
 import java.sql.ResultSet;
@@ -52,10 +51,24 @@ public class Autenticacao {
         if (this.verificaInformacoes()) {
             this.buscarPessoa();
             
+            if(this.login.getFlagAdmim() == Login.ADMINISTRADOR)
+            {
+                
+              FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Admin", this);
+//            UtilitarioSessao.addItem("Usuario", this);
+              return "admin";
+            }
+            
+            else if(this.login.getFlagAdmim() == Login.USUARIO)
+            {
+                
               FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", this);
 //            UtilitarioSessao.addItem("Usuario", this);
+              return "usuario";
+            }
+            
                        
-            return "ok";
+            
         }
         this.msg = "email e/ou senha incorretos";
         return "";
@@ -75,6 +88,7 @@ public class Autenticacao {
         
         if (resultado != null && resultado.next()) {
             this.usuario.setId(resultado.getInt("idPessoa"));
+            this.login.setFlagAdmim(resultado.getInt("flagAdmin"));
             retorno =  true;
         }
         else
