@@ -102,6 +102,14 @@
             <from-outcome>perfil</from-outcome>
             <to-view-id>/admin/perfil.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>addCidade</from-outcome>
+            <to-view-id>/admin/addCidade.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>listarCidades</from-outcome>
+            <to-view-id>/admin/listarCidades.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/admin/editarPerfil.xhtml</from-view-id>
@@ -109,12 +117,27 @@
             <from-outcome>perfil</from-outcome>
             <to-view-id>/admin/perfil.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>listarCidades</from-outcome>
+            <to-view-id>/admin/listarCidades.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/admin/perfil.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>principal</from-outcome>
             <to-view-id>/admin/principal.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>listarCidades</from-outcome>
+            <to-view-id>/admin/listarCidades.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/admin/addCidade.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>listarCidades</from-outcome>
+            <to-view-id>/admin/listarCidades.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

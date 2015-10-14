@@ -27,6 +27,32 @@ and open the template in the editor.
                             <b:inputText id="email" value="#{editarPerfil.pessoaEntidade.email}"/>   
                             <h:outputLabel></h:outputLabel>
                             
+                             <h:outputLabel>estado</h:outputLabel>
+                             <h:selectOneMenu id="estado" value="#{editarPerfil.pessoaEntidade.idEndereco.idCidade.estadoUf.uf}">
+
+                                    <f:ajax execute="estado"  render="cidade"  />
+                                    <f:selectItems value="#{editarPerfil.estadoDao.listaEstados}"
+                                                   var="estado" itemLabel="#{estado.nome}"
+                                                   itemValue="#{estado.uf}" /> 
+                                </h:selectOneMenu>
+                                <h:outputLabel></h:outputLabel>
+
+                                <h:outputLabel></h:outputLabel>
+                                <h:outputLabel></h:outputLabel>
+                                <h:outputLabel></h:outputLabel>
+
+                                <h:outputLabel>cidade</h:outputLabel>
+                                <h:selectOneMenu id="cidade" value="#{editarPerfil.pessoaEntidade.idEndereco.idCidade.id}">
+                                    <f:selectItems value="#{editarPerfil.cidadeDao.buscarListaCidades(editarPerfil.pessoaEntidade.idEndereco.idCidade)}"
+                                                   var="cidade" itemLabel="#{cidade.nome}"
+                                                   itemValue="#{cidade.id}" />
+                                </h:selectOneMenu>
+                                <h:outputLabel></h:outputLabel>
+
+                                <h:outputLabel></h:outputLabel>
+                                <h:outputLabel></h:outputLabel>
+                                <h:outputLabel></h:outputLabel>
+                            
 
                             <h:outputLabel>cep</h:outputLabel>
                             <b:inputText id="cep" value="#{editarPerfil.pessoaEntidade.idEndereco.cep}" required="true"></b:inputText>

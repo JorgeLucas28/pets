@@ -5,22 +5,28 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui">
     <h:head>
-        
+
         <ui:insert name="menu">
             <b:navBar inverse="true">
-            <b:navbarLinks>
-                <b:navLink value="inicio" outcome="principal"></b:navLink>
-                <b:navLink value="cidades" outcome="cidades"></b:navLink>
-                <b:navLink value="perfil" outcome="perfil"></b:navLink>
-            </b:navbarLinks>
-               <h:form styleClass="navbar-form navbar-right">
+                <b:navbarLinks>
+                    <b:navLink value="inicio" outcome="principal"></b:navLink>
+                    <b:dropMenu value="cidades" >
+                        <b:navLink value="add cidade" outcome="addCidade"></b:navLink>
+                        <b:navLink value="listar cidades" outcome="listarCidades"></b:navLink>                       
+
+                    </b:dropMenu>
+                    <b:navLink value="perfil" outcome="perfil"></b:navLink>
+
+                </b:navbarLinks>
+
+                <h:form styleClass="navbar-form navbar-right">
                     <b:commandButton action="#{autenticar.logout}" size="xs"  value="sair" look="danger" icon="chevron-right" iconAlign="right"/>   
                 </h:form>
-        </b:navBar>
+            </b:navBar>
         </ui:insert>
     </h:head>
     <h:body>
-        
+
         <ui:insert name="corpo">
             TESTE DE TEMPLATE
         </ui:insert>

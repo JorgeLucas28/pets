@@ -10,7 +10,6 @@ import dao.CidadeDao;
 import dao.EstadoDao;
 import entidades.Cidade;
 import entidades.Endereco;
-import entidades.Estado;
 import entidades.Login;
 import entidades.Pessoa;
 import entidades.Telefone;
@@ -26,7 +25,7 @@ import javax.faces.bean.RequestScoped;
  * @author Jodi
  */
 @ManagedBean(name = "cadastro")
-
+@RequestScoped
 public class Cadastro {
 
     private Pessoa pessoa;
@@ -34,7 +33,7 @@ public class Cadastro {
     private Login login;
     private Telefone telefone;
     private Conexao conexao;
-    
+
     private Cidade cidadeEntidade;
     private EstadoDao estadoDao;
     private CidadeDao cidadeDao;
@@ -49,9 +48,9 @@ public class Cadastro {
         this.login = new Login();
         this.telefone = new Telefone();
         this.conexao = Conexao.getInstancia();
-        
+
         this.cidadeEntidade = new Cidade();
-        
+
         this.cidadeDao = new CidadeDao();
         this.estadoDao = new EstadoDao();
 
@@ -63,7 +62,7 @@ public class Cadastro {
 // metodo para efetuar o cadastro de um novo usuario
 
     public String cadastrar() {
-String g = "";
+        String g = "";
         if (this.VerificaEmail()) {
             this.msgEmail = "O email digitado ja existe";
             return "erro";
@@ -80,6 +79,11 @@ String g = "";
         }
 
     }
+    
+    public String teste()
+      {
+           return "inicio";
+      }      
 // metodo para inserir regostros na tabela endereço
 
     private void cadastrarEndereco() {
@@ -98,7 +102,7 @@ String g = "";
             if (this.conexao.executeUpdate()) {
                 this.pessoa.setIdEndereco(new Endereco(this.conexao.getAutoIncrement()));
                 System.out.println("Inserido!");
-                
+
             } else {
                 System.out.println("Faiou ao cadastrar endereço!");
             }
@@ -106,12 +110,10 @@ String g = "";
             Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-  
+
 //metodo para inserir registros na tabela pessoa 
     private void cadastroPessoa() {
-      
 
-        // String sqlPessoa = "INSERT INTO pessoa VALUES(default" + ",'" + this.pessoa.getNome() + "','" + this.pessoa.getEmail() + "'," + idEndereco + ");";
         String sqlPessoa = "INSERT INTO pessoa (nome, email, `idEndereco`)"
                 + "VALUES (?, ?, ?);";
 
@@ -135,10 +137,9 @@ String g = "";
 
 // metodo para inserir registros na tabela login
     private void cadastroLogin() {
-       
+
         String senha = "sha1('" + this.login.getSenha() + "')";
 
-        // String sqlLogin = "INSERT INTO login VALUES(sha1('" + this.login.getSenha() + "')," + 0 + ',' + idPessoa + ");";
         String sqlLogin = "INSERT INTO login (senha, `flagAdmin`, `idPessoa`)"
                 + "VALUES (?, ?, ?);";
 
@@ -235,8 +236,6 @@ String g = "";
         return cidadeEntidade;
     }
 
-    
-
     public EstadoDao getEstadoDao() {
         return estadoDao;
     }
@@ -252,7 +251,5 @@ String g = "";
     public void setCidadeDao(CidadeDao cidadeDao) {
         this.cidadeDao = cidadeDao;
     }
-    
-    
 
 }

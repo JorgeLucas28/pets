@@ -82,7 +82,7 @@ public class EnderecoDao {
         return enderecoEntidade;
     }
 
-    private void updateEndereco(Endereco enderecoEntidade) {
+    public void updateEndereco(Endereco enderecoEntidade) {
 
         String SqlEndereco = "UPDATE  endereco SET logradouro=?, bairro=?, `idCidade`=?, cep=?, complemento=?, numero=? WHERE id=?;";
 
@@ -95,7 +95,7 @@ public class EnderecoDao {
             this.conexao.getPs().setString(4, enderecoEntidade.getCep());
             this.conexao.getPs().setString(5, enderecoEntidade.getComplemento());
             this.conexao.getPs().setInt(6, enderecoEntidade.getNumero());
-            this.conexao.getPs().setInt(6, enderecoEntidade.getId());
+            this.conexao.getPs().setInt(7, enderecoEntidade.getId());
 
             if (this.conexao.executeUpdate()) {
                 System.out.println("Inserido!");

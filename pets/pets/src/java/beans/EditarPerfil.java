@@ -7,10 +7,11 @@ package beans;
 
 import dao.CidadeDao;
 import dao.EnderecoDao;
+import dao.EstadoDao;
 import dao.PessoaDao;
+import entidades.Cidade;
 import entidades.Pessoa;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
 /**
@@ -24,16 +25,20 @@ public class EditarPerfil {
     private Pessoa pessoaEntidade;
     private PessoaDao pessoaDao;
     private CidadeDao cidadeDao;
+  
+    private EstadoDao estadoDao;   
     private EnderecoDao enderecoDao;
 
     public EditarPerfil() {
-//        this.pessoaDao = new PessoaDao();
-//        this.pessoaEntidade = new Pessoa();
 
+      
     }
 
-    public void editar() {
-        //implementar mettodo update de pessoa
+    public String editar() {
+        this.pessoaDao.updatePessoa(this.pessoaEntidade);
+        this.enderecoDao.updateEndereco(this.pessoaEntidade.getIdEndereco());
+        
+        return "perfil";
     }
 
     public String idEditar(int idEditar) {
@@ -41,10 +46,14 @@ public class EditarPerfil {
         this.pessoaDao = new PessoaDao();
         this.cidadeDao = new CidadeDao();
         this.enderecoDao = new EnderecoDao();
-
+        
+        this.cidadeDao = new CidadeDao();
+        this.estadoDao = new EstadoDao();
+       
         this.pessoaEntidade = this.pessoaDao.buscarDadosPessoa(pessoaEntidade);
         this.pessoaEntidade.setIdEndereco(this.enderecoDao.buscarEndereco(this.pessoaEntidade.getIdEndereco()));
         this.pessoaEntidade.getIdEndereco().setIdCidade(this.cidadeDao.buscarcidade(this.pessoaEntidade.getIdEndereco().getIdCidade()));
+        
 
         return "editarPerfil";
     }
@@ -57,4 +66,23 @@ public class EditarPerfil {
         this.pessoaEntidade = pessoaEntidade;
     }
 
+    public CidadeDao getCidadeDao() {
+        return cidadeDao;
+    }
+
+    public void setCidadeDao(CidadeDao cidadeDao) {
+        this.cidadeDao = cidadeDao;
+    }
+
+   
+
+    public EstadoDao getEstadoDao() {
+        return estadoDao;
+    }
+
+    public void setEstadoDao(EstadoDao estadoDao) {
+        this.estadoDao = estadoDao;
+    }
+        
+    
 }

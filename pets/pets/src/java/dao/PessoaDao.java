@@ -78,7 +78,28 @@ public class PessoaDao {
         return pessoaEntidade;
     }
 
+     public void updatePessoa(Pessoa pessoaEntidade) {
 
+        String SqlEndereco = "UPDATE  pessoa SET nome=?, email=? WHERE id=?;";
+
+        this.conexao.preparar(SqlEndereco);
+
+        try {
+            this.conexao.getPs().setString(1, pessoaEntidade.getNome());
+            this.conexao.getPs().setString(2, pessoaEntidade.getEmail());
+            this.conexao.getPs().setInt(3, pessoaEntidade.getId());
+           
+
+            if (this.conexao.executeUpdate()) {
+                System.out.println("atualizou!");
+
+            } else {
+                System.out.println("Faiou ao atualizar endereço!");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EnderecoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     
 

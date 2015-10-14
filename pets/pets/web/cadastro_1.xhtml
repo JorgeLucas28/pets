@@ -13,15 +13,14 @@ and open the template in the editor.
     <ui:composition template="template/template.xhtml">
         <ui:define name="corpo">
             <title>Cadastro</title>
-            <b:container >
-                <b:well >
+            
                     <h:form>
                         <fieldset>
                             <legend>Cadastro de usuário</legend>
                             <h:panelGrid columns="3">
 
                                 <h:outputLabel>nome</h:outputLabel>
-                                <b:inputText id="nome" value="#{cadastro.pessoa.nome}" required="true" title="digite o login"></b:inputText>
+                                <b:inputText id="nome" value="#{cadastro.pessoa.nome}" required="true" title="digite o seu nome"></b:inputText>
                                 <h:outputLabel></h:outputLabel>
 
                                 <h:outputLabel>email</h:outputLabel>
@@ -51,7 +50,7 @@ and open the template in the editor.
                                 <h:outputLabel></h:outputLabel>
 
                                 <h:outputLabel>cidade</h:outputLabel>
-                                <h:selectOneMenu id="cidade" value="cidade">
+                                <h:selectOneMenu id="cidade" value="#{cadastro.cidadeEntidade.id}">
                                     <f:selectItems value="#{cadastro.cidadeDao.buscarListaCidades(cadastro.cidadeEntidade)}"
                                                    var="cidade" itemLabel="#{cidade.nome}"
                                                    itemValue="#{cidade.id}" />
@@ -73,7 +72,7 @@ and open the template in the editor.
                                 <h:outputLabel>bairro</h:outputLabel>
                                 <b:inputText id="bairro" value="#{cadastro.endereco.bairro}" required="true"></b:inputText>
                                 <h:outputLabel></h:outputLabel>
-                                
+
                                 <h:outputLabel>complemento</h:outputLabel>
                                 <b:inputText id="complemento" value="#{cadastro.endereco.complemento}" required="true"></b:inputText>
                                 <h:outputLabel></h:outputLabel>
@@ -83,20 +82,17 @@ and open the template in the editor.
                                 <h:outputLabel></h:outputLabel>
 
                                 <h:outputLabel></h:outputLabel>
-                                <b:column span="0">
-                                    <b:commandButton value="ok" action="#{cadastro.teste()}"/>
-                                </b:column>
+                                 <b:column span="0">
+                                     <b:commandButton value="Entrar" action="#{cadastro.cadastrar()}"  update="form:inform infoshow" id="acb"  look="success" />
+                                     </b:column>
                                 <h:outputLabel></h:outputLabel>
 
-                                <h:link value="voltar"  outcome="inicio"/>                    
-                                <h:outputLabel></h:outputLabel>
-                                <h:outputLabel></h:outputLabel>
+
 
                             </h:panelGrid> 
                         </fieldset>
                     </h:form>
-                </b:well>
-            </b:container>
+               
         </ui:define>
 
 

@@ -46,7 +46,7 @@ public class Autenticacao {
         this.cidadeDao = new CidadeDao();
     }
     //metodo para efetuar o login no sistema
-    public String logar(String s) {
+    public String logar() {
 
         if (this.verificaInformacoes()) {
             this.buscarPessoa();
