@@ -16,21 +16,21 @@ and open the template in the editor.
            
             <b:container>
                 <legend></legend>
-                 <legend>Cidades</legend>
+                 <legend>Raças</legend>
                   
                 <h:form>
                     
                     <b:panelGrid colSpans="1,5,6">
 
-                    <h:outputLabel>estado</h:outputLabel>
-                        <b:selectOneMenu id="estado" value="#{cidadeBeans.cidadeEntidade.estadoUf.uf}">
+                    <h:outputLabel>Especie</h:outputLabel>
+                    <b:selectOneMenu id="especie" value="#{AnimalBeans.racaEntidade.idEspecie.id}">
 
                            
-                            <f:selectItems value="#{cidadeBeans.estadoDao.listaEstados}"
-                                           var="estado" itemLabel="#{estado.nome}"
-                                           itemValue="#{estado.uf}" /> 
+                        <f:selectItems value="#{AnimalBeans.listaEspecies}"
+                                           var="e" itemLabel="#{e.nome}"
+                                           itemValue="#{e.id}" /> 
                         </b:selectOneMenu>
-                    <b:commandButton value="ok" action="#{cidadeBeans.buscar()}" look="primary"/>
+                    <b:commandButton value="ok" action="#{AnimalBeans.buscar()}" look="primary"/>
                   
                     </b:panelGrid>
 
@@ -42,21 +42,24 @@ and open the template in the editor.
 
 
                     <b:well>
-                        <h:dataTable  id="tabela" value="#{cidadeBeans.estadoEntidade.cidadeCollection}" var="c" border="1" width="100%" >
+                        <h:dataTable  id="tabela" value="#{AnimalBeans.especieEntidade.listaRaca}" var="raca" border="1" width="100%" >
+                          
+                            <h:column>
+                                <f:facet name="header">Id</f:facet>
+                                    #{raca.id}            
+                            </h:column>
+                            
                             <h:column >
                                 <f:facet name="header" >Nome</f:facet>
-                                    #{c.nome}            
+                                    #{raca.nome}            
                             </h:column>
 
-                            <h:column>
-                                <f:facet name="header">UF</f:facet>
-                                    #{c.estadoUf.uf}            
-                            </h:column>
+                           
 
                             <h:column>
                                 <f:facet name="header">opções</f:facet>
                                 <h:form>
-                                    <b:commandButton value="editar" action="#{cidadeBeans.setIdEditar(c)}" icon="glyphicon glyphicon-pencil" look="info"/>   
+                                    <b:commandButton value="editar" action="#{AnimalBeans.UpdateRaca(raca)}" icon="glyphicon glyphicon-pencil" look="info"/>   
                                       
                                 </h:form>
 
@@ -68,7 +71,7 @@ and open the template in the editor.
                         </h:dataTable>
 
                         <h:form>
-                            <b:commandButton value="add cidade" action="#{cidadeBeans.add()}" look="primary"/>
+                            <b:commandButton value="add Raca" action="#{AnimalBeans.addRaca()}" look="primary"/>
                         </h:form>
                     </b:well>
 

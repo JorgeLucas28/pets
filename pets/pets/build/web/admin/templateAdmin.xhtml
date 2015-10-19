@@ -9,13 +9,24 @@
         <ui:insert name="menu">
             <b:navBar inverse="true">
                 <b:navbarLinks>
-                    <b:navLink value="inicio" outcome="principal"></b:navLink>
-                    <b:dropMenu value="cidades" >
+                    <b:navLink value="Inicio" outcome="principal"></b:navLink>
+                    <b:dropMenu value="Cidades" >
                         <b:navLink value="add cidade" outcome="addCidade"></b:navLink>
                         <b:navLink value="listar cidades" outcome="listarCidades"></b:navLink>                       
 
                     </b:dropMenu>
-                    <b:navLink value="perfil" outcome="perfil"></b:navLink>
+                    <b:dropMenu value="Animais" >
+                        <b:navLink  header="Especie" value="especie" />
+                        <b:navLink value="add especie" outcome="addEspecie"></b:navLink>
+                        <b:navLink value="listar especie"  outcome="listarEspecie"  ></b:navLink>                       
+
+                        <b:navLink></b:navLink>
+                        <b:navLink  header="Raça" />
+                        <b:navLink value="add raça" outcome="addRaca"></b:navLink>
+                        <b:navLink value="listar raça" outcome="listarRaca"></b:navLink>   
+
+                    </b:dropMenu>
+                    <b:navLink value="Perfil" outcome="perfil"></b:navLink>
 
                 </b:navbarLinks>
 

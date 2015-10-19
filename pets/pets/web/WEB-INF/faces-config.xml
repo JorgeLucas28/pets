@@ -110,6 +110,22 @@
             <from-outcome>listarCidades</from-outcome>
             <to-view-id>/admin/listarCidades.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>addEspecie</from-outcome>
+            <to-view-id>/admin/addEspecie.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>listarEspecie</from-outcome>
+            <to-view-id>/admin/listarEspecie.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>addRaca</from-outcome>
+            <to-view-id>/admin/addRaca.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>listarRaca</from-outcome>
+            <to-view-id>/admin/listarRacas.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/admin/editarPerfil.xhtml</from-view-id>
@@ -120,6 +136,10 @@
         <navigation-case>
             <from-outcome>listarCidades</from-outcome>
             <to-view-id>/admin/listarCidades.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>addEspecie</from-outcome>
+            <to-view-id>/admin/addEspecie.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -132,12 +152,144 @@
             <from-outcome>listarCidades</from-outcome>
             <to-view-id>/admin/listarCidades.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>addEspecie</from-outcome>
+            <to-view-id>/admin/addEspecie.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/admin/addCidade.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>listarCidades</from-outcome>
             <to-view-id>/admin/listarCidades.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>addEspecie</from-outcome>
+            <to-view-id>/admin/addEspecie.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/admin/listarCidades.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>editarCidade</from-outcome>
+            <to-view-id>/admin/editarCidade.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>addEspecie</from-outcome>
+            <to-view-id>/admin/addEspecie.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>listarEspecie</from-outcome>
+            <to-view-id>/admin/listarEspecie.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/admin/editarCidade.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>addEspecie</from-outcome>
+            <to-view-id>/admin/addEspecie.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/admin/addEspecie.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>principal</from-outcome>
+            <to-view-id>/admin/principal.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>addCidade</from-outcome>
+            <to-view-id>/admin/addCidade.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>listarEspecie</from-outcome>
+            <to-view-id>/admin/listarEspecie.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>addRaca</from-outcome>
+            <to-view-id>/admin/addRaca.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>listarRaca</from-outcome>
+            <to-view-id>/admin/listarRacas.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/admin/listarEspecie.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>addEspecie</from-outcome>
+            <to-view-id>/admin/addEspecie.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>principal</from-outcome>
+            <to-view-id>/admin/principal.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>editarEspecie</from-outcome>
+            <to-view-id>/admin/editarEspecie.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>listarRaca</from-outcome>
+            <to-view-id>/admin/listarRacas.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/admin/editarEspecie.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>listarEspecie</from-outcome>
+            <to-view-id>/admin/listarEspecie.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/admin/addRaca.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>principal</from-outcome>
+            <to-view-id>/admin/principal.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>addEspecie</from-outcome>
+            <to-view-id>/admin/addEspecie.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>listarRaca</from-outcome>
+            <to-view-id>/admin/listarRacas.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/admin/listarRacas.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>principal</from-outcome>
+            <to-view-id>/admin/principal.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>listarEspecie</from-outcome>
+            <to-view-id>/admin/listarEspecie.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>addRaca</from-outcome>
+            <to-view-id>/admin/addRaca.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>addEspecie</from-outcome>
+            <to-view-id>/admin/addEspecie.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>editarRaca</from-outcome>
+            <to-view-id>/admin/editarRaca.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/admin/editarRaca.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>listarRaca</from-outcome>
+            <to-view-id>/admin/listarRacas.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>princial</from-outcome>
+            <to-view-id>/admin/principal.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>addRaca</from-outcome>
+            <to-view-id>/admin/addRaca.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

@@ -16,22 +16,22 @@ and open the template in the editor.
             <h:form>
                 <b:well class="center">
                     <fieldset>
-                        <legend>Adicionar Cidade</legend>
+                        <legend>Adicionar Raça</legend>
                         <h:panelGrid columns="3">
 
-                            <h:outputLabel>nome:</h:outputLabel>                            
-                            <b:inputText id="nome" value="#{cidadeBeans.cidadeEntidade.nome}"/>
-                            <h:outputLabel id="msg" value="#{cidadeBeans.msgNomeCidade}"></h:outputLabel>
+                            <h:outputLabel>Raça:</h:outputLabel>                            
+                            <b:inputText id="nome" value="#{AnimalBeans.racaEntidade.nome}"/>
+                            <h:outputLabel></h:outputLabel>
                             
          
                             
-                             <h:outputLabel>estado</h:outputLabel>
-                             <b:selectOneMenu id="estado" value="#{cidadeBeans.cidadeEntidade.estadoUf.uf}">
+                             <h:outputLabel>Especie</h:outputLabel>
+                             <b:selectOneMenu id="especie" value="#{AnimalBeans.racaEntidade.idEspecie.id}">
 
-                                    <f:ajax execute="estado"  render="cidade"  />
-                                    <f:selectItems value="#{cidadeBeans.estadoDao.listaEstados}"
-                                                   var="estado" itemLabel="#{estado.nome}"
-                                                   itemValue="#{estado.uf}" /> 
+                                   
+                                 <f:selectItems value="#{AnimalBeans.listaEspecies}"
+                                                var="especie" itemLabel="#{especie.nome}"
+                                                itemValue="#{especie.id}" /> 
                                 </b:selectOneMenu>
                                 <h:outputLabel></h:outputLabel>
 
@@ -41,10 +41,10 @@ and open the template in the editor.
 
                                
                             <h:outputLabel></h:outputLabel>
-                            <b:commandButton value="ok" action="#{cidadeBeans.inserir()}" look="primary"/>
+                            <b:commandButton value="ok" action="#{AnimalBeans.inserirRaca()}" look="primary"/>
                             <h:outputLabel></h:outputLabel>
 
-                            <h:link value="voltar"  outcome="listarCidades"/>                    
+                            <h:link value="voltar"  outcome="listarRacas"/>                    
                             <h:outputLabel></h:outputLabel>
                             <h:outputLabel></h:outputLabel>
 

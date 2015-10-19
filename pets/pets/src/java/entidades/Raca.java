@@ -51,6 +51,7 @@ public class Raca implements Serializable {
     private Especie idEspecie;
 
     public Raca() {
+        this.idEspecie = new Especie();
     }
 
     public Raca(Integer id) {
@@ -62,6 +63,13 @@ public class Raca implements Serializable {
         this.nome = nome;
     }
 
+    public Raca(Integer id, String nome, Especie idEspecie) {
+        this.id = id;
+        this.nome = nome;
+        this.idEspecie = idEspecie;
+    }
+    
+    
     public Integer getId() {
         return id;
     }

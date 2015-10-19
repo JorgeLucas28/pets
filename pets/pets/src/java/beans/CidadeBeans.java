@@ -24,6 +24,7 @@ public class CidadeBeans {
     private EstadoDao estadoDao;
     private Estado estadoEntidade;
     private ArrayList<Cidade> arrayCidades;
+    private String msgNomeCidade;
 
     public CidadeBeans() {
         this.estadoDao = new EstadoDao();
@@ -35,14 +36,30 @@ public class CidadeBeans {
         this.estadoEntidade.setCidadeCollection(CidadeDao.buscarListaCidades(cidadeEntidade));
 
         this.arrayCidades = new ArrayList<>();
+        this.msgNomeCidade = "";
     }
 
     public void inserir() {
-        CidadeDao.inserirCidade(cidadeEntidade);
+        if (!this.cidadeEntidade.getNome().trim().equalsIgnoreCase("")) {
+            CidadeDao.inserirCidade(cidadeEntidade);
+            this.cidadeEntidade.setNome("");
+            this.msgNomeCidade = "";
+        } else {
+
+            this.msgNomeCidade = "Preencha o campo nome";
+        }
+
     }
-    
-     public void editar() {
-        CidadeDao.updateCidade(cidadeEntidade);
+
+    public void editar() {
+        if (!this.cidadeEntidade.getNome().trim().equalsIgnoreCase("")) {
+            CidadeDao.updateCidade(cidadeEntidade);
+            this.cidadeEntidade.setNome("");
+            this.msgNomeCidade = "";
+        } else {
+
+            this.msgNomeCidade = "Preencha o campo nome";
+        }
     }
 
     public void buscar() {
@@ -53,12 +70,11 @@ public class CidadeBeans {
 
     public String setIdEditar(Cidade cidade) {
 
-       this.cidadeEntidade = cidade;
+        this.cidadeEntidade = cidade;
         return "editarCidade";
     }
-    
-    public String add()
-    {
+
+    public String add() {
         this.cidadeEntidade = new Cidade();
         return "addCidade";
     }
@@ -77,6 +93,14 @@ public class CidadeBeans {
 
     public Estado getEstadoEntidade() {
         return estadoEntidade;
+    }
+
+    public String getMsgNomeCidade() {
+        return msgNomeCidade;
+    }
+
+    public void setMsgNomeCidade(String msgNomeCidade) {
+        this.msgNomeCidade = msgNomeCidade;
     }
 
 }

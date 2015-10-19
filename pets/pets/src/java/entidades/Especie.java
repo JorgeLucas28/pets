@@ -6,6 +6,7 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -42,8 +43,9 @@ public class Especie implements Serializable {
     @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEspecie")
-    private Collection<Raca> racaCollection;
+    private ArrayList<Raca> listaRaca;
+   
+    
 
     public Especie() {
     }
@@ -73,14 +75,7 @@ public class Especie implements Serializable {
         this.nome = nome;
     }
 
-    @XmlTransient
-    public Collection<Raca> getRacaCollection() {
-        return racaCollection;
-    }
-
-    public void setRacaCollection(Collection<Raca> racaCollection) {
-        this.racaCollection = racaCollection;
-    }
+   
 
     @Override
     public int hashCode() {
@@ -106,5 +101,14 @@ public class Especie implements Serializable {
     public String toString() {
         return "entidades.Especie[ id=" + id + " ]";
     }
+
+    public ArrayList<Raca> getListaRaca() {
+        return listaRaca;
+    }
+
+    public void setListaRaca(ArrayList<Raca> listaRaca) {
+        this.listaRaca = listaRaca;
+    }
+    
     
 }
