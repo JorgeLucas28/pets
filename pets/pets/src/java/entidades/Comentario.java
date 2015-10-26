@@ -6,7 +6,6 @@
 package entidades;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,7 +42,7 @@ public class Comentario implements Serializable {
     private Integer id;
     @Column(name = "data")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date data;
+    private Data data;
     @Column(name = "texto")
     private String texto;
     @JoinColumn(name = "idPessoa", referencedColumnName = "id")
@@ -60,6 +59,15 @@ public class Comentario implements Serializable {
         this.id = id;
     }
 
+    public Comentario(int id, Data data, String texto, Pessoa idPessoa, Publicacao idPublicacao) {
+        this.id = id;
+        this.data = data;
+        this.texto = texto;
+        this.idPessoa = idPessoa;
+        this.idPublicacao = idPublicacao;
+    }
+     
+    
     public Integer getId() {
         return id;
     }
@@ -68,11 +76,11 @@ public class Comentario implements Serializable {
         this.id = id;
     }
 
-    public Date getData() {
+    public Data getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(Data data) {
         this.data = data;
     }
 

@@ -55,6 +55,12 @@ public class Imagem implements Serializable {
         this.id = id;
         this.caminho = caminho;
     }
+    
+     public Imagem(Integer id, String caminho, Publicacao publicacao) {
+        this.id = id;
+        this.caminho = caminho;
+        this.idPublicacao = publicacao;
+    }
 
     public Integer getId() {
         return id;

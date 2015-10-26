@@ -33,7 +33,6 @@ public class EstadoDao {
 
     // método que permite obter a lista de estados no
     // banco de dados e retorná-la para exibição no controle
-
     public ArrayList<Estado> getListaEstados() throws ClassNotFoundException {
 
         try {

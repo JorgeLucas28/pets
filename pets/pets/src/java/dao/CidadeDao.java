@@ -125,8 +125,10 @@ public class CidadeDao {
 
         conexao.preparar(query);
         try {
+            
             conexao.getPs().setString(1, cidadeEntidade.getNome());
-            conexao.getPs().setString(1, cidadeEntidade.getEstadoUf().getUf());
+            conexao.getPs().setString(2, cidadeEntidade.getEstadoUf().getUf());
+            conexao.getPs().setInt(3, cidadeEntidade.getId());
 
             if (conexao.executeUpdate()) {
                 System.out.println("deletado!");

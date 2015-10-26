@@ -23,7 +23,7 @@ public class CidadeBeans {
     private Cidade cidadeEntidade;
     private EstadoDao estadoDao;
     private Estado estadoEntidade;
-    private ArrayList<Cidade> arrayCidades;
+    
     private String msgNomeCidade;
 
     public CidadeBeans() {
@@ -35,7 +35,7 @@ public class CidadeBeans {
 
         this.estadoEntidade.setCidadeCollection(CidadeDao.buscarListaCidades(cidadeEntidade));
 
-        this.arrayCidades = new ArrayList<>();
+       
         this.msgNomeCidade = "";
     }
 

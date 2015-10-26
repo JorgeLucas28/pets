@@ -7,7 +7,6 @@ package entidades;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -60,7 +59,7 @@ public class Publicacao implements Serializable {
     private Float valor;
     @Column(name = "data")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date data;
+    private Data data;
     @Basic(optional = false)
     @Column(name = "qtd")
     private int qtd;
@@ -126,11 +125,11 @@ public class Publicacao implements Serializable {
         this.valor = valor;
     }
 
-    public Date getData() {
+    public Data getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(Data data) {
         this.data = data;
     }
 
