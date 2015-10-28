@@ -69,7 +69,7 @@ public class Publicacao implements Serializable {
     private Collection<Comentario> comentarioCollection;
     @JoinColumn(name = "idTipoPublicacao", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Tipopublicacao idTipoPublicacao;
+    private TipoPublicacao idTipoPublicacao;
     @JoinColumn(name = "idRaca", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Raca idRaca;
@@ -159,11 +159,11 @@ public class Publicacao implements Serializable {
         this.comentarioCollection = comentarioCollection;
     }
 
-    public Tipopublicacao getIdTipoPublicacao() {
+    public TipoPublicacao getIdTipoPublicacao() {
         return idTipoPublicacao;
     }
 
-    public void setIdTipoPublicacao(Tipopublicacao idTipoPublicacao) {
+    public void setIdTipoPublicacao(TipoPublicacao idTipoPublicacao) {
         this.idTipoPublicacao = idTipoPublicacao;
     }
 

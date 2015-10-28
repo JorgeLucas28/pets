@@ -9,6 +9,7 @@ import conexao.Conexao;
 import dao.CidadeDao;
 import dao.EnderecoDao;
 import dao.PessoaDao;
+import entidades.Data;
 import entidades.Login;
 import entidades.Pessoa;
 import java.sql.ResultSet;
@@ -35,6 +36,7 @@ public class Autenticacao {
     private PessoaDao pessoaDao;
     private CidadeDao cidadeDao;
     private EnderecoDao enderecoDao;
+    private Data data;
 
     public Autenticacao() {
         this.login = new Login();
@@ -44,81 +46,77 @@ public class Autenticacao {
         this.pessoaDao = new PessoaDao();
         this.enderecoDao = new EnderecoDao();
         this.cidadeDao = new CidadeDao();
+        this.data = new Data();
     }
+
     //metodo para efetuar o login no sistema
+
     public String logar() {
 
         if (this.verificaInformacoes()) {
             this.buscarPessoa();
-            
-            if(this.login.getFlagAdmim() == Login.ADMINISTRADOR)
-            {
-                
-              FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Admin", this);
+
+            if (this.login.getFlagAdmim() == Login.ADMINISTRADOR) {
+
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Admin", this);
 //            UtilitarioSessao.addItem("Usuario", this);
-              return "admin";
-            }
-            
-            else if(this.login.getFlagAdmim() == Login.USUARIO)
-            {
-                
-              FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", this);
+                return "admin";
+            } else if (this.login.getFlagAdmim() == Login.USUARIO) {
+
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", this);
 //            UtilitarioSessao.addItem("Usuario", this);
-              return "usuario";
+                return "usuario";
             }
-            
-                       
-            
+
         }
         this.msg = "email e/ou senha incorretos";
         return "";
     }
+
     //metodo para verificar se as informações digitadas no loguin exixtem no bd
+
     private boolean verificaInformacoes() {
         boolean retorno = false;
-       String sqlVerificar = "select * from  bdpets.pessoa p inner join  bdpets.login lo on(p.id = lo.idpessoa) where p.email=? and lo.senha=sha1(?);";
+        String sqlVerificar = "select * from  bdpets.pessoa p inner join  bdpets.login lo on(p.id = lo.idpessoa) where p.email=? and lo.senha=sha1(?);";
         this.conexao.preparar(sqlVerificar);
 
-        
         try {
             this.conexao.getPs().setString(1, this.usuario.getEmail());
             this.conexao.getPs().setString(2, this.login.getSenha());
-            
-             ResultSet resultado = this.conexao.executeQuery();        
-        
-        if (resultado != null && resultado.next()) {
-            this.usuario.setId(resultado.getInt("idPessoa"));
-            this.login.setFlagAdmim(resultado.getInt("flagAdmin"));
-            retorno =  true;
-        }
-        else
-        {
-            retorno = false;
-        }
 
-        
+            ResultSet resultado = this.conexao.executeQuery();
+
+            if (resultado != null && resultado.next()) {
+                this.usuario.setId(resultado.getInt("idPessoa"));
+                this.login.setFlagAdmim(resultado.getInt("flagAdmin"));
+                retorno = true;
+            } else {
+                retorno = false;
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(Autenticacao.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
         return retorno;
     }
+
     //metodo para buscar os dados de uma pessoano sistema e preencre um objeto do tipo pessoa com as mesmas
-    private void buscarPessoa()  {
-   
+
+    private void buscarPessoa() {
+
         this.usuario = this.pessoaDao.buscarDadosPessoa(this.usuario);
         this.usuario.setIdEndereco(this.enderecoDao.buscarEndereco(this.usuario.getIdEndereco()));
         this.usuario.getIdEndereco().setIdCidade(this.cidadeDao.buscarcidade(this.usuario.getIdEndereco().getIdCidade()));
 
     }
-    
-    public String logout()
-    {
+
+    public String logout() {
         FacesContext fc = FacesContext.getCurrentInstance();
-        HttpSession sessao = (HttpSession)fc.getExternalContext().
+        HttpSession sessao = (HttpSession) fc.getExternalContext().
                 getSession(false);
         sessao.invalidate();
-        return("sair");
+        return ("sair");
     }
 
     public Login getLogin() {
@@ -131,6 +129,14 @@ public class Autenticacao {
 
     public String getMsg() {
         return msg;
+    }
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
     }
 
 }

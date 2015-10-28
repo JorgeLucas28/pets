@@ -19,21 +19,21 @@ import java.util.logging.Logger;
  */
 public class EnderecoDao {
 
-    private Conexao conexao;
+    private static Conexao conexao;
    
 
     public EnderecoDao() {
 
-        this.conexao = Conexao.getInstancia();
+        EnderecoDao.conexao = Conexao.getInstancia();
        
     }
 
-    public Endereco buscarEndereco(Endereco enderecoEntidade) {
+    public static Endereco buscarEndereco(Endereco enderecoEntidade) {
         String sqlEndereco = "select * from endereco WHERE id=?;";
-        this.conexao.preparar(sqlEndereco);
+        EnderecoDao.conexao.preparar(sqlEndereco);
 
         try {
-            this.conexao.getPs().setInt(1, enderecoEntidade.getId());
+            EnderecoDao.conexao.getPs().setInt(1, enderecoEntidade.getId());
             ResultSet resultado = conexao.executeQuery();
 
             if (resultado != null && resultado.next()) {
@@ -42,7 +42,11 @@ public class EnderecoDao {
                 enderecoEntidade.setCep(resultado.getString("cep"));
                 enderecoEntidade.setComplemento(resultado.getString("complemento"));
                 enderecoEntidade.setNumero(resultado.getInt("numero"));
-                enderecoEntidade.setIdCidade(new Cidade(resultado.getInt("idCidade")));
+                
+                Cidade cidade = new Cidade(resultado.getInt("idCidade"));
+                cidade = CidadeDao.buscarcidade(cidade);
+                
+                enderecoEntidade.setIdCidade(cidade);
 
             }
 
@@ -54,22 +58,22 @@ public class EnderecoDao {
 
     }
 
-    private Endereco inserirEndereco(Endereco enderecoEntidade) {
+    private static Endereco inserirEndereco(Endereco enderecoEntidade) {
 
         String SqlEndereco = "INSERT INTO endereco (logradouro, bairro, `idCidade`, cep, complemento, numero)"
                 + "	VALUES (?, ?, ?, ?, ?, ?);";
-        this.conexao.prepararAI(SqlEndereco);
+        EnderecoDao.conexao.prepararAI(SqlEndereco);
 
         try {
-            this.conexao.getPs().setString(1, enderecoEntidade.getLogradouro());
-            this.conexao.getPs().setString(2, enderecoEntidade.getBairro());
-            this.conexao.getPs().setInt(3, enderecoEntidade.getIdCidade().getId());
-            this.conexao.getPs().setString(4, enderecoEntidade.getCep());
-            this.conexao.getPs().setString(5, enderecoEntidade.getComplemento());
-            this.conexao.getPs().setInt(6, enderecoEntidade.getNumero());
-            if (this.conexao.executeUpdate()) {
+            EnderecoDao.conexao.getPs().setString(1, enderecoEntidade.getLogradouro());
+            EnderecoDao.conexao.getPs().setString(2, enderecoEntidade.getBairro());
+            EnderecoDao.conexao.getPs().setInt(3, enderecoEntidade.getIdCidade().getId());
+            EnderecoDao.conexao.getPs().setString(4, enderecoEntidade.getCep());
+            EnderecoDao.conexao.getPs().setString(5, enderecoEntidade.getComplemento());
+            EnderecoDao.conexao.getPs().setInt(6, enderecoEntidade.getNumero());
+            if (EnderecoDao.conexao.executeUpdate()) {
 
-                enderecoEntidade.setId(this.conexao.getAutoIncrement());
+                enderecoEntidade.setId(EnderecoDao.conexao.getAutoIncrement());
                 System.out.println("Inserido!");
 
             } else {
@@ -82,22 +86,22 @@ public class EnderecoDao {
         return enderecoEntidade;
     }
 
-    public void updateEndereco(Endereco enderecoEntidade) {
+    public static void updateEndereco(Endereco enderecoEntidade) {
 
         String SqlEndereco = "UPDATE  endereco SET logradouro=?, bairro=?, `idCidade`=?, cep=?, complemento=?, numero=? WHERE id=?;";
 
-        this.conexao.preparar(SqlEndereco);
+        EnderecoDao.conexao.preparar(SqlEndereco);
 
         try {
-            this.conexao.getPs().setString(1, enderecoEntidade.getLogradouro());
-            this.conexao.getPs().setString(2, enderecoEntidade.getBairro());
-            this.conexao.getPs().setInt(3, enderecoEntidade.getIdCidade().getId());
-            this.conexao.getPs().setString(4, enderecoEntidade.getCep());
-            this.conexao.getPs().setString(5, enderecoEntidade.getComplemento());
-            this.conexao.getPs().setInt(6, enderecoEntidade.getNumero());
-            this.conexao.getPs().setInt(7, enderecoEntidade.getId());
+            EnderecoDao.conexao.getPs().setString(1, enderecoEntidade.getLogradouro());
+            EnderecoDao.conexao.getPs().setString(2, enderecoEntidade.getBairro());
+            EnderecoDao.conexao.getPs().setInt(3, enderecoEntidade.getIdCidade().getId());
+            EnderecoDao.conexao.getPs().setString(4, enderecoEntidade.getCep());
+            EnderecoDao.conexao.getPs().setString(5, enderecoEntidade.getComplemento());
+            EnderecoDao.conexao.getPs().setInt(6, enderecoEntidade.getNumero());
+            EnderecoDao.conexao.getPs().setInt(7, enderecoEntidade.getId());
 
-            if (this.conexao.executeUpdate()) {
+            if (EnderecoDao.conexao.executeUpdate()) {
                 System.out.println("Inserido!");
 
             } else {
@@ -108,14 +112,14 @@ public class EnderecoDao {
         }
     }
 
-    public void deletarEndereco(Endereco enderecoEntidade) {
+    public static void deletarEndereco(Endereco enderecoEntidade) {
         String query = "delete FROM endereco WHERE id=?;";
 
-        this.conexao.preparar(query);
+        EnderecoDao.conexao.preparar(query);
         try {
-            this.conexao.getPs().setInt(1, enderecoEntidade.getId());
+            EnderecoDao.conexao.getPs().setInt(1, enderecoEntidade.getId());
 
-            if (this.conexao.executeUpdate()) {
+            if (EnderecoDao.conexao.executeUpdate()) {
                 System.out.println("deletado!");
 
             } else {

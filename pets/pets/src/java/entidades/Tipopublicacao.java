@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tipopublicacao.findAll", query = "SELECT t FROM Tipopublicacao t"),
     @NamedQuery(name = "Tipopublicacao.findById", query = "SELECT t FROM Tipopublicacao t WHERE t.id = :id"),
     @NamedQuery(name = "Tipopublicacao.findByTipo", query = "SELECT t FROM Tipopublicacao t WHERE t.tipo = :tipo")})
-public class Tipopublicacao implements Serializable {
+public class TipoPublicacao implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,14 +45,14 @@ public class Tipopublicacao implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoPublicacao")
     private Collection<Publicacao> publicacaoCollection;
 
-    public Tipopublicacao() {
+    public TipoPublicacao() {
     }
 
-    public Tipopublicacao(Integer id) {
+    public TipoPublicacao(Integer id) {
         this.id = id;
     }
 
-    public Tipopublicacao(Integer id, String tipo) {
+    public TipoPublicacao(Integer id, String tipo) {
         this.id = id;
         this.tipo = tipo;
     }
@@ -92,10 +92,10 @@ public class Tipopublicacao implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tipopublicacao)) {
+        if (!(object instanceof TipoPublicacao)) {
             return false;
         }
-        Tipopublicacao other = (Tipopublicacao) object;
+        TipoPublicacao other = (TipoPublicacao) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

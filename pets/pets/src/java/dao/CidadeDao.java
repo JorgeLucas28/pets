@@ -42,11 +42,13 @@ public class CidadeDao {
             ResultSet resultado = conexao.executeQuery();
 
             while (resultado.next()) {
-                String uf = resultado.getString("ufEstado");
+                
                 String nome = resultado.getString("nome");
                 int id = resultado.getInt("id");
+                Estado estado = new Estado(resultado.getString("ufEstado"));
+                estado = EstadoDao.buscarEstado(estado);
 
-                CidadeDao.listaCidades.add(new Cidade(id, nome, new Estado(uf)));
+                CidadeDao.listaCidades.add(new Cidade(id, nome, estado));
             }
         } catch (SQLException ex) {
             System.err.println("Erro ao obter dados: " + ex.toString());
@@ -66,7 +68,11 @@ public class CidadeDao {
             if (resultado != null && resultado.next()) {
                 cidadeEntidade.setNome(resultado.getString("nome"));
                 cidadeEntidade.setId(resultado.getInt("id"));
-                cidadeEntidade.setEstadoUf(new Estado(resultado.getString("ufEstado")));
+                
+                Estado estado = new Estado(resultado.getString("ufEstado"));
+                estado = EstadoDao.buscarEstado(estado);
+                
+                cidadeEntidade.setEstadoUf(estado);
             }
 
         } catch (SQLException ex) {

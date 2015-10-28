@@ -7,6 +7,7 @@ package dao;
 
 import entidades.*;
 import conexao.Conexao;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -18,58 +19,65 @@ import java.util.logging.Logger;
  */
 public class PessoaDao {
 
-   
-    private Conexao conexao;
+    private static Conexao conexao;
 
     public PessoaDao() {
-        
-        this.conexao = Conexao.getInstancia();
+
+        PessoaDao.conexao = Conexao.getInstancia();
+
     }
+
     //insere os dados de um objeto pessoa no banco de dados e 
     //retorna um objeto do tipo pessoa com o atributo id instanciado 
     //com o valor do BD
-    public Pessoa inserirPessoa(Pessoa pessoaEntidade) {
-        
+
+    public static Pessoa inserirPessoa(Pessoa pessoaEntidade) {
+
         String sqlPessoa = "INSERT INTO pessoa (nome, email, `idEndereco`)"
                 + "VALUES (?, ?, ?);";
 
-        this.conexao.preparar(sqlPessoa);
+        PessoaDao.conexao.preparar(sqlPessoa);
 
         try {
-            this.conexao.getPs().setString(1,pessoaEntidade.getNome());
-            this.conexao.getPs().setString(2, pessoaEntidade.getEmail());
-            this.conexao.getPs().setInt(3, pessoaEntidade.getIdEndereco().getId());
+            PessoaDao.conexao.getPs().setString(1, pessoaEntidade.getNome());
+            PessoaDao.conexao.getPs().setString(2, pessoaEntidade.getEmail());
+            PessoaDao.conexao.getPs().setInt(3, pessoaEntidade.getIdEndereco().getId());
 
-            if (this.conexao.executeUpdate()) {
+            if (PessoaDao.conexao.executeUpdate()) {
                 System.out.println("Inserido!");
-                pessoaEntidade.setId(this.conexao.getAutoIncrement());
+                pessoaEntidade.setId(PessoaDao.conexao.getAutoIncrement());
             } else {
                 System.out.println("Faiou ao cadastrar pessoa!");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return pessoaEntidade;
     }
+
     //bunca as informações de um pessoa no BD
     // e retorna um objeto do tipo pessoa 
     //com todos os atributos instanciados
-    public Pessoa buscarDadosPessoa(Pessoa pessoaEntidade) {
+
+    public static Pessoa buscarDadosPessoa(Pessoa pessoaEntidade) {
         String sqlPessoa = "select * from pessoa WHERE id=? ;";
-        this.conexao.preparar(sqlPessoa);
+        PessoaDao.conexao.preparar(sqlPessoa);
 
         try {
-            this.conexao.getPs().setInt(1, pessoaEntidade.getId());
-            ResultSet resultado = this.conexao.executeQuery();
+            PessoaDao.conexao.getPs().setInt(1, pessoaEntidade.getId());
+            ResultSet resultado = PessoaDao.conexao.executeQuery();
 
             if (resultado != null && resultado.next()) {
                 pessoaEntidade.setNome(resultado.getString("nome"));
                 pessoaEntidade.setId(Integer.parseInt(resultado.getString("id")));
                 pessoaEntidade.setEmail(resultado.getString("email"));
-                pessoaEntidade.setIdEndereco(new Endereco(resultado.getInt("idEndereco")));
-            }
 
+                Endereco endereco = EnderecoDao.buscarEndereco(new Endereco(resultado.getInt("idEndereco")));
+
+                pessoaEntidade.setIdEndereco(endereco);
+
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -78,19 +86,18 @@ public class PessoaDao {
         return pessoaEntidade;
     }
 
-     public void updatePessoa(Pessoa pessoaEntidade) {
+    public static void updatePessoa(Pessoa pessoaEntidade) {
 
         String SqlEndereco = "UPDATE  pessoa SET nome=?, email=? WHERE id=?;";
 
-        this.conexao.preparar(SqlEndereco);
+        PessoaDao.conexao.preparar(SqlEndereco);
 
         try {
-            this.conexao.getPs().setString(1, pessoaEntidade.getNome());
-            this.conexao.getPs().setString(2, pessoaEntidade.getEmail());
-            this.conexao.getPs().setInt(3, pessoaEntidade.getId());
-           
+            PessoaDao.conexao.getPs().setString(1, pessoaEntidade.getNome());
+            PessoaDao.conexao.getPs().setString(2, pessoaEntidade.getEmail());
+            PessoaDao.conexao.getPs().setInt(3, pessoaEntidade.getId());
 
-            if (this.conexao.executeUpdate()) {
+            if (PessoaDao.conexao.executeUpdate()) {
                 System.out.println("atualizou!");
 
             } else {
@@ -100,7 +107,5 @@ public class PessoaDao {
             Logger.getLogger(EnderecoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    
 
 }

@@ -20,26 +20,25 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean(name = "estadoDao")
 public class EstadoDao {
 
-    private Conexao conexao;
-    private ArrayList<Estado> listaEstados;
-    private Estado estadoEntidade;
+    private static Conexao conexao;
+    
 
     public EstadoDao() {
-        this.conexao = Conexao.getInstancia();
-        this.listaEstados = new ArrayList<Estado>();
-        this.estadoEntidade = new Estado();
+        EstadoDao.conexao = Conexao.getInstancia();
 
     }
 
     // método que permite obter a lista de estados no
     // banco de dados e retorná-la para exibição no controle
-    public ArrayList<Estado> getListaEstados() throws ClassNotFoundException {
-
+    public static ArrayList<Estado> getListaEstados() throws ClassNotFoundException {
+        EstadoDao.conexao = Conexao.getInstancia();
+        ArrayList<Estado> listaEstados = new ArrayList<Estado>();
+        
         try {
-            this.listaEstados = new ArrayList<>();
+            listaEstados = new ArrayList<>();
             String query = "SELECT * FROM estado ORDER BY nome";
-            this.conexao.preparar(query);
-            ResultSet resultado = this.conexao.executeQuery();
+            EstadoDao.conexao.preparar(query);
+            ResultSet resultado = EstadoDao.conexao.executeQuery();
 
             while (resultado.next()) {
                 String uf = resultado.getString("uf");
@@ -55,28 +54,29 @@ public class EstadoDao {
     }
 
     /*
-        @return Estado
+     @return Estado
      */
-    public Estado buscarEstado(Estado uf) {
+    public static Estado buscarEstado(Estado estadoEntidade) {
         try {
-
+             EstadoDao.conexao = Conexao.getInstancia();
+             
             String query = "select * from cidade WHERE uf=?;";
-            this.conexao.preparar(query);
+            EstadoDao.conexao.preparar(query);
 
-            this.conexao.getPs().setString(1, uf.getUf());
+            EstadoDao.conexao.getPs().setString(1, estadoEntidade.getUf());
 
-            ResultSet resultado = this.conexao.executeQuery();
+            ResultSet resultado = EstadoDao.conexao.executeQuery();
 
             if (resultado != null && resultado.next()) {
 
-                this.estadoEntidade.setNome(resultado.getString("nome"));
-                this.estadoEntidade.setUf(uf.getUf());
+                estadoEntidade.setNome(resultado.getString("nome"));
+                estadoEntidade.setUf(estadoEntidade.getUf());
 
             }
         } catch (SQLException ex) {
             System.err.println("Erro ao obter dados: " + ex.toString());
         }
-        return this.estadoEntidade;
+        return estadoEntidade;
     }
 
 }

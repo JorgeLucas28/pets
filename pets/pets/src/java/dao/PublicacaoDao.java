@@ -8,6 +8,7 @@ package dao;
 import conexao.Conexao;
 import entidades.Data;
 import entidades.Publicacao;
+import entidades.Raca;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class PublicacaoDao {
 
             listaPublicacao = new ArrayList<>();
 
-            String query = "SELECT * FROM publicao WHERE titulo LIKE ? ORDER BY titulo;";
+            String query = "SELECT * FROM publicacao;";
             conexao.preparar(query);
             conexao.getPs().setString(1, publicacaoEntidade.getTitulo());
             ResultSet resultado = conexao.executeQuery();
@@ -41,11 +42,14 @@ public class PublicacaoDao {
                 String descricao = resultado.getString("descricao");
                 float valor = resultado.getFloat("valor");
                 Data data = new Data(resultado.getLong("valor"));
+                //buscar dados da raça do animal
+                Raca raca= new Raca(resultado.getInt("idraca"));
+                raca = RacaDao.buscarRaca(raca);                
                 int qtd = resultado.getInt("qtd");
                 
                
 
-                //CidadeDao.listaCidades.add(new Cidade(id, nome, new Estado(uf)));
+                
             }
         } catch (SQLException ex) {
             System.err.println("Erro ao obter dados: " + ex.toString());

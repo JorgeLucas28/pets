@@ -40,8 +40,9 @@ public class RacaDao {
                 String nome = resultado.getString("nome");
                 int id = resultado.getInt("id");
                 int idEspecie = resultado.getInt("idEspecie");
+                Especie especie = EspecieDao.buscarEspecie(new Especie(idEspecie));
 
-                listaEspecies.add(new Raca(id, nome, new Especie(idEspecie)));
+                listaEspecies.add(new Raca(id, nome, especie));
             }
         } catch (SQLException ex) {
             System.err.println("Erro ao obter dados: " + ex.toString());
@@ -61,7 +62,12 @@ public class RacaDao {
             if (resultado != null && resultado.next()) {
                 racaEntidade.setNome(resultado.getString("nome"));
                 racaEntidade.setId(resultado.getInt("id"));
-                racaEntidade.setIdEspecie(new Especie(resultado.getInt("idEspecie")));
+                
+                int idEspecie = resultado.getInt("idEspecie");
+                Especie especie = EspecieDao.buscarEspecie(new Especie(idEspecie));
+                
+                racaEntidade.setIdEspecie(especie);
+                
             }
 
         } catch (SQLException ex) {
