@@ -9,10 +9,12 @@ import dao.CidadeDao;
 import dao.EnderecoDao;
 import dao.EstadoDao;
 import dao.PessoaDao;
-import entidades.Cidade;
+import entidades.Estado;
 import entidades.Pessoa;
+import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
 
 /**
  *
@@ -23,10 +25,9 @@ import javax.faces.bean.SessionScoped;
 public class EditarPerfil {
 
     private Pessoa pessoaEntidade;
-    private PessoaDao pessoaDao;
     private CidadeDao cidadeDao;
-  
-    private EstadoDao estadoDao;   
+    private ArrayList<Estado> listaDeEstados;
+    
     private EnderecoDao enderecoDao;
 
     public EditarPerfil() {
@@ -35,28 +36,27 @@ public class EditarPerfil {
     }
 
     public String editar() {
-        this.pessoaDao.updatePessoa(this.pessoaEntidade);
-        this.enderecoDao.updateEndereco(this.pessoaEntidade.getIdEndereco());
+        PessoaDao.updatePessoa(this.pessoaEntidade);
+        EnderecoDao.updateEndereco(this.pessoaEntidade.getIdEndereco());
         
         return "perfil";
     }
 
     public String idEditar(int idEditar) {
         this.pessoaEntidade = new Pessoa(idEditar);
-        this.pessoaDao = new PessoaDao();
         this.cidadeDao = new CidadeDao();
-        this.enderecoDao = new EnderecoDao();
-        
-        this.cidadeDao = new CidadeDao();
-        this.estadoDao = new EstadoDao();
        
-        this.pessoaEntidade = this.pessoaDao.buscarDadosPessoa(pessoaEntidade);
-        this.pessoaEntidade.setIdEndereco(this.enderecoDao.buscarEndereco(this.pessoaEntidade.getIdEndereco()));
-        this.pessoaEntidade.getIdEndereco().setIdCidade(this.cidadeDao.buscarcidade(this.pessoaEntidade.getIdEndereco().getIdCidade()));
+        this.listaDeEstados = EstadoDao.getListaEstados();
+       
+        this.pessoaEntidade = PessoaDao.buscarDadosPessoa(pessoaEntidade);
+
+        
         
 
         return "editarPerfil";
     }
+    
+    
 
     public Pessoa getPessoaEntidade() {
         return pessoaEntidade;
@@ -70,19 +70,14 @@ public class EditarPerfil {
         return cidadeDao;
     }
 
-    public void setCidadeDao(CidadeDao cidadeDao) {
-        this.cidadeDao = cidadeDao;
+    public ArrayList<Estado> getListaDeEstados() {
+        return listaDeEstados;
+    }
+
+    public void setListaDeEstados(ArrayList<Estado> listaDeEstados) {
+        this.listaDeEstados = listaDeEstados;
     }
 
    
-
-    public EstadoDao getEstadoDao() {
-        return estadoDao;
-    }
-
-    public void setEstadoDao(EstadoDao estadoDao) {
-        this.estadoDao = estadoDao;
-    }
-        
     
 }

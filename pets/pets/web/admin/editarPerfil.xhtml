@@ -31,7 +31,7 @@ and open the template in the editor.
                              <h:selectOneMenu id="estado" value="#{editarPerfil.pessoaEntidade.idEndereco.idCidade.estadoUf.uf}">
 
                                     <f:ajax execute="estado"  render="cidade"  />
-                                    <f:selectItems value="#{editarPerfil.estadoDao.listaEstados}"
+                                    <f:selectItems value="#{editarPerfil.listaDeEstados}"
                                                    var="estado" itemLabel="#{estado.nome}"
                                                    itemValue="#{estado.uf}" /> 
                                 </h:selectOneMenu>

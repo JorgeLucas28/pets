@@ -25,10 +25,7 @@ public class CidadeDao {
     private static Conexao conexao;
     private static ArrayList<Cidade> listaCidades;
 
-    public CidadeDao() {
-
-    }
-
+   
     public static ArrayList<Cidade> buscarListaCidades(Cidade cidadeEntidade) {
         conexao = Conexao.getInstancia();
 

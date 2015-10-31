@@ -22,17 +22,9 @@ public class EstadoDao {
 
     private static Conexao conexao;
     
-
-    public EstadoDao() {
+    public static ArrayList<Estado> getListaEstados()  {
         EstadoDao.conexao = Conexao.getInstancia();
-
-    }
-
-    // método que permite obter a lista de estados no
-    // banco de dados e retorná-la para exibição no controle
-    public static ArrayList<Estado> getListaEstados() throws ClassNotFoundException {
-        EstadoDao.conexao = Conexao.getInstancia();
-        ArrayList<Estado> listaEstados = new ArrayList<Estado>();
+        ArrayList<Estado> listaEstados = new ArrayList<>();
         
         try {
             listaEstados = new ArrayList<>();

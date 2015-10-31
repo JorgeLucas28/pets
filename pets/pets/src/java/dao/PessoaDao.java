@@ -7,7 +7,6 @@ package dao;
 
 import entidades.*;
 import conexao.Conexao;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -21,22 +20,16 @@ public class PessoaDao {
 
     private static Conexao conexao;
 
-    public PessoaDao() {
+    
 
-        PessoaDao.conexao = Conexao.getInstancia();
-
-    }
-
-    //insere os dados de um objeto pessoa no banco de dados e 
-    //retorna um objeto do tipo pessoa com o atributo id instanciado 
-    //com o valor do BD
-
+    
     public static Pessoa inserirPessoa(Pessoa pessoaEntidade) {
 
+         PessoaDao.conexao = Conexao.getInstancia();
         String sqlPessoa = "INSERT INTO pessoa (nome, email, `idEndereco`)"
                 + "VALUES (?, ?, ?);";
 
-        PessoaDao.conexao.preparar(sqlPessoa);
+        PessoaDao.conexao.prepararAI(sqlPessoa);
 
         try {
             PessoaDao.conexao.getPs().setString(1, pessoaEntidade.getNome());
@@ -56,11 +49,9 @@ public class PessoaDao {
         return pessoaEntidade;
     }
 
-    //bunca as informações de um pessoa no BD
-    // e retorna um objeto do tipo pessoa 
-    //com todos os atributos instanciados
-
+    
     public static Pessoa buscarDadosPessoa(Pessoa pessoaEntidade) {
+         PessoaDao.conexao = Conexao.getInstancia();
         String sqlPessoa = "select * from pessoa WHERE id=? ;";
         PessoaDao.conexao.preparar(sqlPessoa);
 
@@ -88,6 +79,7 @@ public class PessoaDao {
 
     public static void updatePessoa(Pessoa pessoaEntidade) {
 
+         PessoaDao.conexao = Conexao.getInstancia();
         String SqlEndereco = "UPDATE  pessoa SET nome=?, email=? WHERE id=?;";
 
         PessoaDao.conexao.preparar(SqlEndereco);
@@ -108,4 +100,55 @@ public class PessoaDao {
         }
     }
 
+    // metodo para verificar se o email inserido pelo usuario ja exixte no banco 
+    public static boolean VerificaEmail(Pessoa pessoaEntidade) {
+
+         PessoaDao.conexao = Conexao.getInstancia();
+        boolean retorno = false;
+        String sqlVerificar = "select * from pessoa where email =? ;";
+        PessoaDao.conexao.preparar(sqlVerificar);
+
+        try {
+            PessoaDao.conexao.getPs().setString(1, pessoaEntidade.getEmail());
+            ResultSet resultado = PessoaDao.conexao.executeQuery();
+            retorno = resultado != null && resultado.next();
+        } catch (SQLException ex) {
+            Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
+    }
+
+    public static boolean VerificaNumeroTelefone(Pessoa pessoaEntidade) {
+         PessoaDao.conexao = Conexao.getInstancia();
+        boolean retorno = false;
+        String sqlVerificar = "select * from telefone where numero = ? ;";
+        PessoaDao.conexao.preparar(sqlVerificar);
+
+        try {
+            PessoaDao.conexao.getPs().setString(1, pessoaEntidade.getEmail());
+            ResultSet resultado = PessoaDao.conexao.executeQuery();
+            retorno = resultado != null && resultado.next();
+        } catch (SQLException ex) {
+            Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, "erro ao verificar telefone", ex);
+        }
+        return retorno;
+    }
+
+    public static boolean deletarPessoa(Pessoa pessoaEntidade) {
+         PessoaDao.conexao = Conexao.getInstancia();
+        boolean retorno = false;
+        String query = "delete FROM pessoa WHERE id=?;";
+
+        conexao.preparar(query);
+
+        try {
+            conexao.getPs().setInt(1, pessoaEntidade.getId());
+            retorno = conexao.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PessoaDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return retorno;
+
+    }
 }

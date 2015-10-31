@@ -20,9 +20,7 @@ import java.util.logging.Logger;
 public class TipoPublicacaoDao {
     private static Conexao conexao;
 
-    private  TipoPublicacaoDao() {
-    }
-    
+        
      public static ArrayList<TipoPublicacao> buscarListaTipos() {
         conexao = Conexao.getInstancia();
         ArrayList<TipoPublicacao> listaTipo  = new ArrayList<>();

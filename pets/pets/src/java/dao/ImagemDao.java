@@ -22,9 +22,8 @@ public class ImagemDao {
 
     private static Conexao conexao;
     private static ArrayList<Imagem> listaImagens;
-    
-    
-     public static ArrayList<Imagem> buscarListaCidades(Publicacao publicacaoEntidade) {
+
+    public static ArrayList<Imagem> buscarListaCidades(Publicacao publicacaoEntidade) {
         conexao = Conexao.getInstancia();
 
         try {
@@ -37,11 +36,11 @@ public class ImagemDao {
             ResultSet resultado = conexao.executeQuery();
 
             while (resultado.next()) {
-                
+
                 int id = resultado.getInt("id");
                 String caminho = resultado.getString("caminho");
-                listaImagens.add(new Imagem(id, caminho,new Publicacao(publicacaoEntidade.getId())));
-               
+                listaImagens.add(new Imagem(id, caminho, new Publicacao(publicacaoEntidade.getId())));
+
             }
         } catch (SQLException ex) {
             System.err.println("Erro ao obter dados: " + ex.toString());
@@ -49,8 +48,8 @@ public class ImagemDao {
 
         return listaImagens;
     }
-     
-      public static void inserirImagem(Imagem imagemEntidade) {
+
+    public static void inserirImagem(Imagem imagemEntidade) {
 
         conexao = Conexao.getInstancia();
         String query = "INSERT INTO imagem (nome,caminho, `publicacao_id`) "
@@ -59,7 +58,7 @@ public class ImagemDao {
         conexao.preparar(query);
         try {
             conexao.getPs().setInt(1, imagemEntidade.getId());
-            conexao.getPs().setString(2,imagemEntidade.getCaminho());
+            conexao.getPs().setString(2, imagemEntidade.getCaminho());
             conexao.getPs().setInt(3, imagemEntidade.getIdPublicacao().getId());
 
             if (conexao.executeUpdate()) {
@@ -72,9 +71,9 @@ public class ImagemDao {
             Logger.getLogger(ImagemDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-      
-       public static void deletarImagens( Imagem imagemEntidade) {
-        
+
+    public static void deletarImagens(Imagem imagemEntidade) {
+
         conexao = Conexao.getInstancia();
         String query = "delete FROM imagem WHERE publicacao_id=?;";
 

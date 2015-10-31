@@ -14,6 +14,28 @@ import entidades.Publicacao;
 public class PublicacaoBeans {
     
     private Publicacao publicacao;
+
+    public PublicacaoBeans() {
+        this.publicacao = new Publicacao();
+    }
+    
+    public static void inserir()
+    {
+        
+    }
+
+    public Publicacao getPublicacao() {
+        return publicacao;
+    }
+
+    public void setPublicacao(Publicacao publicacao) {
+        this.publicacao = publicacao;
+    }
+    
+    
+    
+    
+    
     
     
 }

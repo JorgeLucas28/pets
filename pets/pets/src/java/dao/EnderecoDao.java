@@ -20,15 +20,12 @@ import java.util.logging.Logger;
 public class EnderecoDao {
 
     private static Conexao conexao;
+    
    
 
-    public EnderecoDao() {
-
-        EnderecoDao.conexao = Conexao.getInstancia();
-       
-    }
-
+   
     public static Endereco buscarEndereco(Endereco enderecoEntidade) {
+        conexao = Conexao.getInstancia();
         String sqlEndereco = "select * from endereco WHERE id=?;";
         EnderecoDao.conexao.preparar(sqlEndereco);
 
@@ -59,7 +56,7 @@ public class EnderecoDao {
     }
 
     private static Endereco inserirEndereco(Endereco enderecoEntidade) {
-
+         conexao = Conexao.getInstancia();
         String SqlEndereco = "INSERT INTO endereco (logradouro, bairro, `idCidade`, cep, complemento, numero)"
                 + "	VALUES (?, ?, ?, ?, ?, ?);";
         EnderecoDao.conexao.prepararAI(SqlEndereco);
@@ -87,7 +84,7 @@ public class EnderecoDao {
     }
 
     public static void updateEndereco(Endereco enderecoEntidade) {
-
+         conexao = Conexao.getInstancia();
         String SqlEndereco = "UPDATE  endereco SET logradouro=?, bairro=?, `idCidade`=?, cep=?, complemento=?, numero=? WHERE id=?;";
 
         EnderecoDao.conexao.preparar(SqlEndereco);
@@ -113,6 +110,7 @@ public class EnderecoDao {
     }
 
     public static void deletarEndereco(Endereco enderecoEntidade) {
+         conexao = Conexao.getInstancia();
         String query = "delete FROM endereco WHERE id=?;";
 
         EnderecoDao.conexao.preparar(query);

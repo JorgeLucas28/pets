@@ -41,8 +41,8 @@ public class ComentarioDao {
 
                 int id = resultado.getInt("id");
                 String texto = resultado.getString("texto");
-                Data data = new Data(resultado.getLong("data"));
-                Pessoa pessoa = new Pessoa(resultado.getInt("idPessoa"));
+                Data data = new Data(resultado.getTimestamp("data").getTime());
+                Pessoa pessoa = PessoaDao.buscarDadosPessoa(new Pessoa(resultado.getInt("idPessoa")));
 
                 listaComentario.add(new Comentario(id, data, texto, pessoa, new Publicacao(publicacaoEntidade.getId())));
 
@@ -58,13 +58,12 @@ public class ComentarioDao {
 
         conexao = Conexao.getInstancia();
         String query = "INSERT INTO comentario (data,texto, `idpessoa`, `idpublicacao`) "
-                + "	VALUES (?, ?, ?, ?);";
+                + "	VALUES (now(), ?, ?, ?);";
 
         conexao.preparar(query);
         try {
-            conexao.getPs().setLong(1, comentarioEntidade.getData().getTempo());
-            conexao.getPs().setString(2, comentarioEntidade.getTexto());
-            conexao.getPs().setInt(3, comentarioEntidade.getIdPessoa().getId());
+            conexao.getPs().setString(1, comentarioEntidade.getTexto());
+            conexao.getPs().setInt(2, comentarioEntidade.getIdPessoa().getId());
             conexao.getPs().setInt(3, comentarioEntidade.getIdPublicacao().getId());
 
             if (conexao.executeUpdate()) {
@@ -89,8 +88,8 @@ public class ComentarioDao {
             if (resultado != null && resultado.next()) {
                 comentarioEntidade.setId(resultado.getInt("id"));
                 comentarioEntidade.setTexto(resultado.getString("texto"));
-                comentarioEntidade.setData(new Data(resultado.getLong("data")));
-                comentarioEntidade.setIdPessoa(new Pessoa(resultado.getInt("idPessoa")));
+                comentarioEntidade.setData(new Data(resultado.getTimestamp("data").getTime()));
+                comentarioEntidade.setIdPessoa(PessoaDao.buscarDadosPessoa(new Pessoa(resultado.getInt("idPessoa"))));
                 comentarioEntidade.setIdPublicacao(new Publicacao(resultado.getInt("idpublicacao")));
             }
 

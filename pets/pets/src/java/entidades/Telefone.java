@@ -50,6 +50,14 @@ public class Telefone implements Serializable {
         this.id = id;
     }
 
+    public Telefone(Integer id, String numero, Pessoa idPessoa) {
+        this.id = id;
+        this.numero = numero;
+        this.idPessoa = idPessoa;
+    }
+    
+    
+
     public Integer getId() {
         return id;
     }
