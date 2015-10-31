@@ -11,7 +11,7 @@ and open the template in the editor.
        xmlns:b="http://bootsfaces.net/ui"
        xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="templateUsuario.xhtml">
+    <ui:composition template="template/template.xhtml">
         <ui:define name="corpo">
             <h1>Publicação</h1>
             <h:form>
@@ -21,18 +21,18 @@ and open the template in the editor.
                         <h:panelGrid columns="3">
 
                             <h:outputLabel>titulo:</h:outputLabel>                            
-                            <b:inputText id="nome" value="#{editarPerfil.pessoaEntidade.nome}"/>
+                            <b:inputText id="nome" value="#"/>
                             <h:outputLabel></h:outputLabel>
 
 
 
-                            <h:outputLabel>especié:</h:outputLabel>
+                            <h:outputLabel>especie:</h:outputLabel>
                             <h:selectOneMenu id="especie" value="#">
 
                                 <f:ajax execute="especie"  render="raca"  />
-                                <f:selectItems value="#{AnimalBeans.listaEspecies}"
+<!--                                <f:selectItems value="#"
                                                var="esp" itemLabel="#{esp.nome}"
-                                               itemValue="#{esp.id}" /> 
+                                               itemValue="#{esp.id}" /> -->
                             </h:selectOneMenu>
                             <h:outputLabel></h:outputLabel>
 
@@ -42,9 +42,9 @@ and open the template in the editor.
 
                             <h:outputLabel>raça:</h:outputLabel>
                             <h:selectOneMenu id="raca" value="#">
-                                <f:selectItems value="#{AnimalBeans.especieEntidade.listaRaca}"
+<!--                                <f:selectItems value="#"
                                                var="r" itemLabel="#{r.nome}"
-                                               itemValue="#{r.id}" />
+                                               itemValue="#{r.id}" />-->
                             </h:selectOneMenu>
                             <h:outputLabel></h:outputLabel>
 
@@ -59,9 +59,9 @@ and open the template in the editor.
 
                             <h:outputLabel>tipo:</h:outputLabel>
                             <h:selectOneMenu id="tipo" value="#">
-                                <f:selectItems value="#"
+<!--                                <f:selectItems value="#"
                                                var="t" itemLabel="#{t.tipo}"
-                                               itemValue="#{t.id}" />
+                                               itemValue="#{t.id}" />-->
                             </h:selectOneMenu>
                             <h:outputLabel></h:outputLabel>
 
@@ -71,27 +71,28 @@ and open the template in the editor.
 
                             <h:outputLabel>valor</h:outputLabel>
                             <b:inputText id="valor" value="#" required="true"></b:inputText>
-                            <h:outputLabel></h:outputLabel>
+                            
 
 
                             <h:messages id="msg" style="color: red;"/>
-                            <h:outputLabel value="Arquivo" for="arquivo" />
+                            <h:outputLabel value="imagem" for="arquivo" />
                             <h:inputFile id="arquivo" value="#}" 
                                          required="true" label="Arquivo" 
                                          requiredMessage="Selecione o arquivo!" />
+                            <h:outputLabel></h:outputLabel>
 
 
                             <h:outputLabel>descrição</h:outputLabel>
                             <h:inputTextarea id="descricao" value="#" required="true"/>
                             <h:outputLabel></h:outputLabel>
 
-                            <h:outputLabel></h:outputLabel>
-                            <b:commandButton value="ok" action="#{editarPerfil.editar()}"/>
-                            <h:outputLabel></h:outputLabel>
-
+<!--                            <h:outputLabel></h:outputLabel>
+                            <b:commandButton value="ok" action="#"/>
+                            <h:outputLabel></h:outputLabel>-->
+<!--
                             <h:link value="voltar"  outcome="perfil"/>                    
                             <h:outputLabel></h:outputLabel>
-                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel></h:outputLabel>-->
 
 
 

@@ -6,14 +6,14 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html  xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:b="http://bootsfaces.net/ui"
+       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="templateUsuario.xhtml">
         <ui:define name="corpo">
-            <h1>Editar dados do Perfil</h1>
+            <h1>Publicação</h1>
             <h:form>
                 <b:well class="center">
                     <fieldset>
@@ -24,7 +24,7 @@ and open the template in the editor.
                             <b:inputText id="nome" value="#{editarPerfil.pessoaEntidade.nome}"/>
                             <h:outputLabel></h:outputLabel>
 
-                           
+
 
                             <h:outputLabel>especié:</h:outputLabel>
                             <h:selectOneMenu id="especie" value="#">
@@ -57,7 +57,7 @@ and open the template in the editor.
                             <b:inputText id="qrd" value="#" required="true"></b:inputText>
                             <h:outputLabel></h:outputLabel>
 
-                             <h:outputLabel>tipo:</h:outputLabel>
+                            <h:outputLabel>tipo:</h:outputLabel>
                             <h:selectOneMenu id="tipo" value="#">
                                 <f:selectItems value="#"
                                                var="t" itemLabel="#{t.tipo}"
@@ -74,12 +74,15 @@ and open the template in the editor.
                             <h:outputLabel></h:outputLabel>
 
 
-                            <h:outputLabel>complemento</h:outputLabel>
-                            <b:inputText id="complemento" value="#{editarPerfil.pessoaEntidade.idEndereco.complemento}" required="true"></b:inputText>
-                            <h:outputLabel></h:outputLabel>
+                            <h:messages id="msg" style="color: red;"/>
+                            <h:outputLabel value="Arquivo" for="arquivo" />
+                            <h:inputFile id="arquivo" value="#}" 
+                                         required="true" label="Arquivo" 
+                                         requiredMessage="Selecione o arquivo!" />
 
-                            <h:outputLabel>numero</h:outputLabel>
-                            <b:inputText id="numero" value="#{editarPerfil.pessoaEntidade.idEndereco.numero}" required="true"></b:inputText>
+
+                            <h:outputLabel>descrição</h:outputLabel>
+                            <h:inputTextarea id="descricao" value="#" required="true"/>
                             <h:outputLabel></h:outputLabel>
 
                             <h:outputLabel></h:outputLabel>
