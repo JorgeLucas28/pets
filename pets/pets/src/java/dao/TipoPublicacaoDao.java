@@ -25,10 +25,7 @@ public class TipoPublicacaoDao {
         conexao = Conexao.getInstancia();
         ArrayList<TipoPublicacao> listaTipo  = new ArrayList<>();
         try {
-
-            
-
-            String query = "SELECT * FROM tipopublicacao ORDER BY nome;";
+            String query = "SELECT * FROM tipopublicacao ORDER BY tipo;";
             conexao.preparar(query);
             ResultSet resultado = conexao.executeQuery();
 

@@ -52,14 +52,16 @@ public class ImagemDao {
     public static void inserirImagem(Imagem imagemEntidade) {
 
         conexao = Conexao.getInstancia();
-        String query = "INSERT INTO imagem (nome,caminho, `publicacao_id`) "
-                + "	VALUES (?, ?, ?);";
+        String query = "INSERT INTO imagem (caminho, `publicacao_id`) "
+                + "	VALUES (?, ?);";
+        
+       
 
         conexao.preparar(query);
         try {
-            conexao.getPs().setInt(1, imagemEntidade.getId());
-            conexao.getPs().setString(2, imagemEntidade.getCaminho());
-            conexao.getPs().setInt(3, imagemEntidade.getIdPublicacao().getId());
+           
+            conexao.getPs().setString(1, imagemEntidade.getCaminho());
+            conexao.getPs().setInt(2, imagemEntidade.getIdPublicacao().getId());
 
             if (conexao.executeUpdate()) {
                 System.out.println("Inserido!");

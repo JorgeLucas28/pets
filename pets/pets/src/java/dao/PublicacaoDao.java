@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 public class PublicacaoDao {
 
     private static Conexao conexao;
+    public static int idGerado=0;
 
     public static ArrayList<Publicacao> buscarListaPublicacao() {
         conexao = Conexao.getInstancia();
@@ -130,7 +131,7 @@ public class PublicacaoDao {
         boolean retorno = false;
         String sql = "INSERT INTO publicacao (titulo, descricao, valor, data, idtipoPublicacao, idraca, qtd, idpessoa)"
                 + " VALUES (?, ?, ?, now(), ?, ?, ?, ?);";
-        conexao.preparar(sql);
+        conexao.prepararAI(sql);
 
         try {
             conexao.getPs().setString(1, publicacao.getTitulo());
@@ -142,6 +143,7 @@ public class PublicacaoDao {
             conexao.getPs().setInt(7, publicacao.getIdPessoa().getId());
 
             retorno = conexao.executeUpdate();
+            idGerado = conexao.getAutoIncrement();
 
         } catch (SQLException ex) {
             Logger.getLogger(PublicacaoDao.class.getName()).log(Level.SEVERE, null, ex);

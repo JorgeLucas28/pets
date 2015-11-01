@@ -39,7 +39,7 @@ public class Especie implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private int id;
     @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
@@ -48,6 +48,7 @@ public class Especie implements Serializable {
     
 
     public Especie() {
+       
     }
 
     public Especie(Integer id) {
@@ -75,27 +76,32 @@ public class Especie implements Serializable {
         this.nome = nome;
     }
 
-   
-
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 7;
+        hash = 71 * hash + this.id;
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Especie)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Especie other = (Especie) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Especie other = (Especie) obj;
+        if (this.id != other.id) {
             return false;
         }
         return true;
     }
+
+   
+
+    
+
 
     @Override
     public String toString() {

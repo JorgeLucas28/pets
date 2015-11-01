@@ -38,7 +38,7 @@ public class TipoPublicacao implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private int id;
     @Basic(optional = false)
     @Column(name = "tipo")
     private String tipo;
@@ -84,24 +84,27 @@ public class TipoPublicacao implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 7;
+        hash = 59 * hash + this.id;
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TipoPublicacao)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        TipoPublicacao other = (TipoPublicacao) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TipoPublicacao other = (TipoPublicacao) obj;
+        if (this.id != other.id) {
             return false;
         }
         return true;
     }
 
+    
     @Override
     public String toString() {
         return "entidades.Tipopublicacao[ id=" + id + " ]";

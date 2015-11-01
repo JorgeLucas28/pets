@@ -6,6 +6,8 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -80,6 +82,13 @@ public class Publicacao implements Serializable {
     private Collection<Negociacao> negociacaoCollection;
 
     public Publicacao() {
+        this.idPessoa = new Pessoa();
+        this.data = new Data();
+        this.idRaca = new Raca();
+        this.idTipoPublicacao = new TipoPublicacao();
+        this.comentarioCollection = new ArrayList<Comentario>();
+        this.imagemCollection = new ArrayList<Imagem>();
+        this.negociacaoCollection = new ArrayList<Negociacao>();
     }
 
     public Publicacao(Integer id) {

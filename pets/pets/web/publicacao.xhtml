@@ -14,25 +14,25 @@ and open the template in the editor.
     <ui:composition template="template/template.xhtml">
         <ui:define name="corpo">
             <h1>Publicação</h1>
-            <h:form>
+            <h:form id="form" enctype="multipart/form-data">
                 <b:well class="center">
                     <fieldset>
                         <legend>dados da publicação</legend>
                         <h:panelGrid columns="3">
 
                             <h:outputLabel>titulo:</h:outputLabel>                            
-                            <b:inputText id="nome" value="#"/>
+                            <b:inputText id="titulo" value="#{publicacaoBeans.publicacao.titulo}"  required="true"/>
                             <h:outputLabel></h:outputLabel>
 
 
 
                             <h:outputLabel>especie:</h:outputLabel>
-                            <h:selectOneMenu id="especie" value="#">
+                            <h:selectOneMenu id="especie" value="#{publicacaoBeans.publicacao.idRaca.idEspecie.id}" required="true">
 
                                 <f:ajax execute="especie"  render="raca"  />
-<!--                                <f:selectItems value="#"
+                                <f:selectItems value="#{publicacaoBeans.busrcarListaEspecies()}"
                                                var="esp" itemLabel="#{esp.nome}"
-                                               itemValue="#{esp.id}" /> -->
+                                               itemValue="#{esp.id}" /> 
                             </h:selectOneMenu>
                             <h:outputLabel></h:outputLabel>
 
@@ -41,10 +41,10 @@ and open the template in the editor.
                             <h:outputLabel></h:outputLabel>
 
                             <h:outputLabel>raça:</h:outputLabel>
-                            <h:selectOneMenu id="raca" value="#">
-<!--                                <f:selectItems value="#"
+                            <h:selectOneMenu id="raca" value="#{publicacaoBeans.publicacao.idRaca.id}"  required="true">
+                                <f:selectItems value="#{publicacaoBeans.busrcarListaRacas()}"
                                                var="r" itemLabel="#{r.nome}"
-                                               itemValue="#{r.id}" />-->
+                                               itemValue="#{r.id}"  />
                             </h:selectOneMenu>
                             <h:outputLabel></h:outputLabel>
 
@@ -54,14 +54,14 @@ and open the template in the editor.
 
 
                             <h:outputLabel>qtd</h:outputLabel>
-                            <b:inputText id="qrd" value="#" required="true"></b:inputText>
+                            <b:inputText id="qrd" value="#{publicacaoBeans.publicacao.qtd}" required="true"></b:inputText>
                             <h:outputLabel></h:outputLabel>
 
                             <h:outputLabel>tipo:</h:outputLabel>
-                            <h:selectOneMenu id="tipo" value="#">
-<!--                                <f:selectItems value="#"
+                            <h:selectOneMenu id="tipo" value="#{publicacaoBeans.publicacao.idTipoPublicacao.id}"  required="true">
+                                <f:selectItems value="#{publicacaoBeans.busrcarListaTipos()}"
                                                var="t" itemLabel="#{t.tipo}"
-                                               itemValue="#{t.id}" />-->
+                                               itemValue="#{t.id}" />
                             </h:selectOneMenu>
                             <h:outputLabel></h:outputLabel>
 
@@ -70,20 +70,24 @@ and open the template in the editor.
                             <h:outputLabel></h:outputLabel>
 
                             <h:outputLabel>valor</h:outputLabel>
-                            <b:inputText id="valor" value="#" required="true"></b:inputText>
+                            <b:inputText id="valor" value="#{publicacaoBeans.publicacao.valor}" required="true"></b:inputText>
                             
 
 
                             <h:messages id="msg" style="color: red;"/>
                             <h:outputLabel value="imagem" for="arquivo" />
-                            <h:inputFile id="arquivo" value="#}" 
-                                         required="true" label="Arquivo" 
-                                         requiredMessage="Selecione o arquivo!" />
+                            <h:inputFile id="arquivo" value="#{publicacaoBeans.arquivoModel.arquivo}" 
+                                         required="true" label="imagem" 
+                                         requiredMessage="Selecione o uma imagem para a publicação!" />
                             <h:outputLabel></h:outputLabel>
 
 
                             <h:outputLabel>descrição</h:outputLabel>
-                            <h:inputTextarea id="descricao" value="#" required="true"/>
+                            <h:inputTextarea id="descricao" value="#{publicacaoBeans.publicacao.descricao}" required="true"/>
+                            <h:outputLabel></h:outputLabel>
+                            
+                            <h:outputLabel></h:outputLabel>
+                            <h:commandButton value="ok" action="#{publicacaoBeans.publicar()}" />
                             <h:outputLabel></h:outputLabel>
 
 <!--                            <h:outputLabel></h:outputLabel>
