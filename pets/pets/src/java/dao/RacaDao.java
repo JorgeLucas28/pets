@@ -23,7 +23,7 @@ public class RacaDao {
     private static Conexao conexao;
     private static ArrayList<Raca> listaEspecies;
 
-    public static ArrayList<Raca> buscarListaRaca(Raca racaEntidade) {
+    public static ArrayList<Raca> buscarListaRaca(int idEspecie) {
         conexao = Conexao.getInstancia();
 
         try {
@@ -32,17 +32,14 @@ public class RacaDao {
 
             String query = "SELECT * FROM raca WHERE idEspecie= ? ORDER BY nome;";
             conexao.preparar(query);
-            conexao.getPs().setInt(1, racaEntidade.getIdEspecie().getId());
+            conexao.getPs().setInt(1, idEspecie);
             ResultSet resultado = conexao.executeQuery();
 
             while (resultado.next()) {
 
                 String nome = resultado.getString("nome");
                 int id = resultado.getInt("id");
-                int idEspecie = resultado.getInt("idEspecie");
-                Especie especie = EspecieDao.buscarEspecie(new Especie(idEspecie));
-
-                listaEspecies.add(new Raca(id, nome, especie));
+                listaEspecies.add(new Raca(id, nome,  EspecieDao.buscarEspecie(idEspecie)));
             }
         } catch (SQLException ex) {
             System.err.println("Erro ao obter dados: " + ex.toString());
@@ -51,22 +48,19 @@ public class RacaDao {
         return listaEspecies;
     }
 
-    public static Raca buscarRaca(Raca racaEntidade) {
+    public static Raca buscarRaca(int id) {
+        Raca racaEntidade = new Raca();
         try {
             conexao = Conexao.getInstancia();
             String query = "SELECT * FROM raca WHERE id= ?;";
             conexao.preparar(query);
-            conexao.getPs().setInt(1, racaEntidade.getId());
+            conexao.getPs().setInt(1, id);
             ResultSet resultado = conexao.executeQuery();
 
             if (resultado != null && resultado.next()) {
                 racaEntidade.setNome(resultado.getString("nome"));
                 racaEntidade.setId(resultado.getInt("id"));
-                
-                int idEspecie = resultado.getInt("idEspecie");
-                Especie especie = EspecieDao.buscarEspecie(new Especie(idEspecie));
-                
-                racaEntidade.setIdEspecie(especie);
+                racaEntidade.setIdEspecie(EspecieDao.buscarEspecie(resultado.getInt("idEspecie")));
                 
             }
 
@@ -99,14 +93,14 @@ public class RacaDao {
         }
     }
 
-    public static void deletarRaca(Raca racaEntidade) {
+    public static void deletarRaca(int id) {
 
         conexao = Conexao.getInstancia();
         String query = "delete FROM raca WHERE id=?;";
 
         conexao.preparar(query);
         try {
-            conexao.getPs().setInt(1, racaEntidade.getId());
+            conexao.getPs().setInt(1, id);
 
             if (conexao.executeUpdate()) {
                 System.out.println("deletado!");

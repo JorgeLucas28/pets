@@ -80,6 +80,8 @@ public class Publicacao implements Serializable {
     private Pessoa idPessoa;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPublicacao")
     private Collection<Negociacao> negociacaoCollection;
+    @Column(name = "ativado")
+    private int estado;
 
     public Publicacao() {
         this.idPessoa = new Pessoa();
@@ -224,6 +226,22 @@ public class Publicacao implements Serializable {
     @Override
     public String toString() {
         return "entidades.Publicacao[ id=" + id + " ]";
+    }
+    /**
+     * 
+     * @return 
+     */
+     public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        if(estado == 1 || estado == 0)
+        {
+             this.estado = estado;
+        }
+        
+        
     }
     
 }

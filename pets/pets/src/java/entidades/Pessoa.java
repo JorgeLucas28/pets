@@ -42,7 +42,7 @@ public class Pessoa implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private int id;
     @Basic(optional = false)
     @Column(name = "nome")
     private String nome;
@@ -62,6 +62,7 @@ public class Pessoa implements Serializable {
     private Collection<Publicacao> publicacaoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPessoa")
     private Collection<Negociacao> negociacaoCollection;
+    
 
     public Pessoa() {
         this.comentarioCollection = new ArrayList<Comentario>();
@@ -83,14 +84,7 @@ public class Pessoa implements Serializable {
         this.email = email;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
+   
     public String getNome() {
         return this.nome;
     }
@@ -160,25 +154,17 @@ public class Pessoa implements Serializable {
         this.negociacaoCollection = negociacaoCollection;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public int getId() {
+        return id;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Pessoa)) {
-            return false;
-        }
-        Pessoa other = (Pessoa) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setId(int id) {
+        this.id = id;
     }
+
+   
+
+   
 
     @Override
     public String toString() {

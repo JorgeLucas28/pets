@@ -7,10 +7,8 @@ package dao;
 
 import conexao.Conexao;
 import entidades.Data;
-import entidades.Pessoa;
+import entidades.Imagem;
 import entidades.Publicacao;
-import entidades.Raca;
-import entidades.TipoPublicacao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,9 +22,11 @@ import java.util.logging.Logger;
 public class PublicacaoDao {
 
     private static Conexao conexao;
-    public static int idGerado=0;
+    protected static int idGerado = 0;
+    public static final int ATIVADO = 1;
+    public static final int DESATIVADO = 0;
 
-    public static ArrayList<Publicacao> buscarListaPublicacao() {
+    public static ArrayList<Publicacao> buscarTodasPublicacoes() {
         conexao = Conexao.getInstancia();
         ArrayList<Publicacao> listaPublicacao = new ArrayList<>();
 
@@ -45,10 +45,11 @@ public class PublicacaoDao {
                 publicacaoEntidade.setDescricao(resultado.getString("descricao"));
                 publicacaoEntidade.setValor(resultado.getFloat("valor"));
                 publicacaoEntidade.setData(new Data(resultado.getTimestamp("data").getTime()));
-                publicacaoEntidade.setIdRaca(RacaDao.buscarRaca(new Raca(resultado.getInt("idraca"))));
+                publicacaoEntidade.setIdRaca(RacaDao.buscarRaca(resultado.getInt("idraca")));
                 publicacaoEntidade.setQtd(resultado.getInt("qtd"));
-                publicacaoEntidade.setIdTipoPublicacao(TipoPublicacaoDao.buscarTipo(new TipoPublicacao(resultado.getInt("idtipoPublicacao"))));
-                publicacaoEntidade.setIdPessoa(PessoaDao.buscarDadosPessoa(new Pessoa(resultado.getInt("idpessoa"))));
+                publicacaoEntidade.setIdTipoPublicacao(TipoPublicacaoDao.buscarTipo(resultado.getInt("idtipoPublicacao")));
+                publicacaoEntidade.setIdPessoa(PessoaDao.buscarDadosPessoa(resultado.getInt("idpessoa")));
+                publicacaoEntidade.setEstado(resultado.getInt("ativado"));
 
                 listaPublicacao.add(publicacaoEntidade);
 
@@ -60,7 +61,7 @@ public class PublicacaoDao {
         return listaPublicacao;
     }
 
-    public static ArrayList<Publicacao> buscarListaPublicacaoPorTitulo(Publicacao p) {
+    public static ArrayList<Publicacao> buscarListaPublicacaoPorTitulo(String titulo) {
         conexao = Conexao.getInstancia();
         ArrayList<Publicacao> listaPublicacao = new ArrayList<>();
 
@@ -68,7 +69,7 @@ public class PublicacaoDao {
 
             String query = "SELECT * FROM publicacao WHERE titulo LIKE %?% ORDER BY id desc;";
             conexao.preparar(query);
-            conexao.getPs().setString(1, p.getTitulo());
+            conexao.getPs().setString(1, titulo);
             ResultSet resultado = conexao.executeQuery();
 
             while (resultado.next()) {
@@ -80,10 +81,11 @@ public class PublicacaoDao {
                 publicacaoEntidade.setDescricao(resultado.getString("descricao"));
                 publicacaoEntidade.setValor(resultado.getFloat("valor"));
                 publicacaoEntidade.setData(new Data(resultado.getTimestamp("data").getTime()));
-                publicacaoEntidade.setIdRaca(RacaDao.buscarRaca(new Raca(resultado.getInt("idraca"))));
+                publicacaoEntidade.setIdRaca(RacaDao.buscarRaca(resultado.getInt("idraca")));
                 publicacaoEntidade.setQtd(resultado.getInt("qtd"));
-                publicacaoEntidade.setIdTipoPublicacao(TipoPublicacaoDao.buscarTipo(new TipoPublicacao(resultado.getInt("idtipoPublicacao"))));
-                publicacaoEntidade.setIdPessoa(PessoaDao.buscarDadosPessoa(new Pessoa(resultado.getInt("idpessoa"))));
+                publicacaoEntidade.setIdTipoPublicacao(TipoPublicacaoDao.buscarTipo(resultado.getInt("idtipoPublicacao")));
+                publicacaoEntidade.setIdPessoa(PessoaDao.buscarDadosPessoa(resultado.getInt("idpessoa")));
+                publicacaoEntidade.setEstado(resultado.getInt("ativado"));
 
                 listaPublicacao.add(publicacaoEntidade);
 
@@ -95,7 +97,8 @@ public class PublicacaoDao {
         return listaPublicacao;
     }
 
-    public static Publicacao buscarPublicacao(Publicacao publicacaoEntidade) {
+    public static Publicacao buscarPublicacao(int id) {
+        Publicacao publicacaoEntidade = new Publicacao();
         conexao = Conexao.getInstancia();
         ArrayList<Publicacao> listaPublicacao = new ArrayList<>();
 
@@ -103,20 +106,21 @@ public class PublicacaoDao {
 
             String query = "SELECT * FROM publicacao WHERE id LIKE ?;";
             conexao.preparar(query);
-            conexao.getPs().setInt(1, publicacaoEntidade.getId());
+            conexao.getPs().setInt(1, id);
             ResultSet resultado = conexao.executeQuery();
 
             if (resultado.next()) {
 
-                publicacaoEntidade.setId(resultado.getInt("id"));
+                publicacaoEntidade.setId(id);
                 publicacaoEntidade.setTitulo(resultado.getString("titulo"));
                 publicacaoEntidade.setDescricao(resultado.getString("descricao"));
                 publicacaoEntidade.setValor(resultado.getFloat("valor"));
                 publicacaoEntidade.setData(new Data(resultado.getTimestamp("data").getTime()));
-                publicacaoEntidade.setIdRaca(RacaDao.buscarRaca(new Raca(resultado.getInt("idraca"))));
+                publicacaoEntidade.setIdRaca(RacaDao.buscarRaca(resultado.getInt("idraca")));
                 publicacaoEntidade.setQtd(resultado.getInt("qtd"));
-                publicacaoEntidade.setIdTipoPublicacao(TipoPublicacaoDao.buscarTipo(new TipoPublicacao(resultado.getInt("idtipoPublicacao"))));
-                publicacaoEntidade.setIdPessoa(PessoaDao.buscarDadosPessoa(new Pessoa(resultado.getInt("idpessoa"))));
+                publicacaoEntidade.setIdTipoPublicacao(TipoPublicacaoDao.buscarTipo(resultado.getInt("idtipoPublicacao")));
+                publicacaoEntidade.setIdPessoa(PessoaDao.buscarDadosPessoa(resultado.getInt("idpessoa")));
+                publicacaoEntidade.setEstado(resultado.getInt("ativado"));
 
             }
         } catch (SQLException ex) {
@@ -126,7 +130,7 @@ public class PublicacaoDao {
         return publicacaoEntidade;
     }
 
-    public static boolean inseir(Publicacao publicacao) {
+    private static boolean inserir(Publicacao publicacao) {
         conexao = Conexao.getInstancia();
         boolean retorno = false;
         String sql = "INSERT INTO publicacao (titulo, descricao, valor, data, idtipoPublicacao, idraca, qtd, idpessoa)"
@@ -152,15 +156,16 @@ public class PublicacaoDao {
         return retorno;
     }
 
-    public static boolean deletar(Publicacao publicacao) {
+    public static boolean desativar(int id) {
         conexao = Conexao.getInstancia();
         boolean retorno = false;
-        String sql = "DELETE FROM publicacao WHERE id=? ;";
+        String sql = "UPDATE publicacao SET ativado=? WHERE id=? ;";
         conexao.preparar(sql);
 
         try {
 
-            conexao.getPs().setInt(1, publicacao.getId());
+            conexao.getPs().setInt(1, PublicacaoDao.DESATIVADO);
+            conexao.getPs().setInt(2, id);
 
             retorno = conexao.executeUpdate();
 
@@ -171,7 +176,7 @@ public class PublicacaoDao {
         return retorno;
     }
 
-    public static boolean update(Publicacao publicacaoEntidade) {
+    private static boolean update(Publicacao publicacaoEntidade) {
         boolean retorno = false;
         conexao = Conexao.getInstancia();
 
@@ -197,4 +202,36 @@ public class PublicacaoDao {
         return retorno;
 
     }
+
+    public static boolean InserirPublicacao(Publicacao publicacao, Imagem imagem) {
+        boolean retorno = false;
+        conexao = Conexao.getInstancia();
+        conexao.iniciaTransacao();
+        retorno = PublicacaoDao.inserir(publicacao);
+
+        if (retorno) {
+            imagem.setId(idGerado);
+            retorno = ImagemDao.inserirImagem(imagem);
+        }
+        conexao.fecharTransacao(retorno);
+
+        return retorno;
+
+    }
+
+    public static boolean updatePublicacao(Publicacao publicacao, Imagem imagem) {
+        boolean retorno = false;
+        conexao = Conexao.getInstancia();
+        conexao.iniciaTransacao();
+
+        retorno = PublicacaoDao.update(publicacao);
+
+        if (retorno) {
+            retorno = ImagemDao.updateImagem(imagem);
+        }
+        conexao.fecharTransacao(retorno);
+
+        return retorno;
+    }
+
 }

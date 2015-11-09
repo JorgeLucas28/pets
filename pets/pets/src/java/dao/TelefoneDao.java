@@ -44,7 +44,7 @@ public class TelefoneDao {
 
     }
 
-    public static boolean inserir(Telefone telefoneEntidade) {
+    protected static boolean inserir(Telefone telefoneEntidade) {
         boolean retorno = false;
         conexao = Conexao.getInstancia();
         String sql = "INSERT INTO telefone (numero, `idPessoa`) "
@@ -63,7 +63,7 @@ public class TelefoneDao {
         return retorno;
     }
 
-    public static boolean update(Telefone telefoneEntidade) {
+    protected static boolean update(Telefone telefoneEntidade) {
         conexao = Conexao.getInstancia();
         boolean retorno = false;
         String query = "UPDATE telefone SET numero=? WHERE id=?;";
@@ -81,10 +81,10 @@ public class TelefoneDao {
         return retorno;
     }
 
-    public static boolean deletar(int id) {
+    protected static boolean deletar(int id) {
         conexao = Conexao.getInstancia();
         boolean retorno = false;
-        String query = "delete FROM cidade WHERE id=?;";
+        String query = "delete FROM telefone WHERE id=?;";
 
         conexao.preparar(query);
         try {

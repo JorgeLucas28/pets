@@ -5,6 +5,7 @@
  */
 package entidades;
 
+import dao.LoginDao;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -40,8 +41,7 @@ public class Login implements Serializable {
     @ManyToOne(optional = false)
     private Pessoa idPessoa;
     
-    public static final int ADMINISTRADOR = 1;
-    public static final int USUARIO = 0;
+   
 
     public Login() {
     }
@@ -62,8 +62,12 @@ public class Login implements Serializable {
         return flagAdmim;
     }
 
-    public void setFlagAdmim(Integer flagAdmim) {
-        this.flagAdmim = flagAdmim;
+    public void setFlagAdmim(int flagAdmim) {
+        if(flagAdmim == LoginDao.ADMINISTRADOR || flagAdmim == LoginDao.USUARIO)
+        {
+            this.flagAdmim = flagAdmim;
+        }
+        
     }
 
     public Pessoa getIdPessoa() {

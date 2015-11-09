@@ -13,7 +13,6 @@ import dao.RacaDao;
 import dao.TipoPublicacaoDao;
 import entidades.Especie;
 import entidades.Imagem;
-import entidades.Pessoa;
 import entidades.Publicacao;
 import entidades.Raca;
 import entidades.TipoPublicacao;
@@ -34,22 +33,22 @@ public class PublicacaoBeans {
 
     public PublicacaoBeans() {
         this.publicacao = new Publicacao();
-        this.publicacao.setIdPessoa(PessoaDao.buscarDadosPessoa(new Pessoa(1)));
+        this.publicacao.setIdPessoa(PessoaDao.buscarDadosPessoa(1));
         this.arquivoModel = new ArquivoModel();
 
     }
 
     public void publicar() {
-        if (PublicacaoDao.inseir(publicacao)) {
+       
             arquivoModel.salvar();
-            Imagem imagem = new Imagem(0, arquivoModel.camihoArquivo(), new Publicacao(PublicacaoDao.idGerado));
+            Imagem imagem = new Imagem();
+            imagem.setCaminho(arquivoModel.camihoArquivo());           
 
-            ImagemDao.inserirImagem(imagem);
+            PublicacaoDao.InserirPublicacao(publicacao, imagem);
+            
             this.publicacao = new Publicacao();
             this.arquivoModel = new ArquivoModel();
-        } else {
-            System.err.println("erro");
-        }
+       
 
     }
 
@@ -58,7 +57,7 @@ public class PublicacaoBeans {
     }
 
     public ArrayList<Raca> busrcarListaRacas() {
-        return RacaDao.buscarListaRaca(this.publicacao.getIdRaca());
+        return RacaDao.buscarListaRaca(this.publicacao.getIdRaca().getIdEspecie().getId());
     }
 
     public ArrayList<TipoPublicacao> busrcarListaTipos() {

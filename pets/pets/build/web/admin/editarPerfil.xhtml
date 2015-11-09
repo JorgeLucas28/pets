@@ -43,7 +43,7 @@ and open the template in the editor.
 
                                 <h:outputLabel>cidade</h:outputLabel>
                                 <h:selectOneMenu id="cidade" value="#{editarPerfil.pessoaEntidade.idEndereco.idCidade.id}">
-                                    <f:selectItems value="#{editarPerfil.cidadeDao.buscarListaCidades(editarPerfil.pessoaEntidade.idEndereco.idCidade)}"
+                                    <f:selectItems value="#{editarPerfil.buscarCidades()}"
                                                    var="cidade" itemLabel="#{cidade.nome}"
                                                    itemValue="#{cidade.id}" />
                                 </h:selectOneMenu>

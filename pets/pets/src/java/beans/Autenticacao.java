@@ -8,6 +8,7 @@ package beans;
 import conexao.Conexao;
 import dao.CidadeDao;
 import dao.EnderecoDao;
+import dao.LoginDao;
 import dao.PessoaDao;
 import entidades.Data;
 import entidades.Login;
@@ -56,12 +57,12 @@ public class Autenticacao {
         if (this.verificaInformacoes()) {
             this.buscarPessoa();
 
-            if (this.login.getFlagAdmim() == Login.ADMINISTRADOR) {
+            if (this.login.getFlagAdmim() == LoginDao.ADMINISTRADOR) {
 
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Admin", this);
 //            UtilitarioSessao.addItem("Usuario", this);
                 return "admin";
-            } else if (this.login.getFlagAdmim() == Login.USUARIO) {
+            } else if (this.login.getFlagAdmim() == LoginDao.USUARIO) {
 
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", this);
 //            UtilitarioSessao.addItem("Usuario", this);
@@ -105,9 +106,9 @@ public class Autenticacao {
 
     private void buscarPessoa() {
 
-        this.usuario = this.pessoaDao.buscarDadosPessoa(this.usuario);
-        this.usuario.setIdEndereco(this.enderecoDao.buscarEndereco(this.usuario.getIdEndereco()));
-        this.usuario.getIdEndereco().setIdCidade(this.cidadeDao.buscarcidade(this.usuario.getIdEndereco().getIdCidade()));
+        this.usuario = PessoaDao.buscarDadosPessoa(this.usuario.getId());
+        this.usuario.setIdEndereco(EnderecoDao.buscarEndereco(this.usuario.getIdEndereco().getId()));
+        this.usuario.getIdEndereco().setIdCidade(CidadeDao.buscarcidade(this.usuario.getIdEndereco().getIdCidade().getId()));
 
     }
 
@@ -116,6 +117,7 @@ public class Autenticacao {
         HttpSession sessao = (HttpSession) fc.getExternalContext().
                 getSession(false);
         sessao.invalidate();
+        conexao.fechar();
         return ("sair");
     }
 

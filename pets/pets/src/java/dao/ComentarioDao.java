@@ -25,7 +25,7 @@ public class ComentarioDao {
     private static Conexao conexao;
     private static ArrayList<Comentario> listaComentario;
 
-    public static ArrayList<Comentario> buscarListaComentarios(Publicacao publicacaoEntidade) {
+    public static ArrayList<Comentario> buscarListaComentarios(int idPublicacao) {
         conexao = Conexao.getInstancia();
 
         try {
@@ -34,7 +34,7 @@ public class ComentarioDao {
             String query = "SELECT * FROM comentario WHERE idpublicacao=?;";
 
             conexao.preparar(query);
-            conexao.getPs().setInt(1, publicacaoEntidade.getId());
+            conexao.getPs().setInt(1, idPublicacao);
             ResultSet resultado = conexao.executeQuery();
 
             while (resultado.next()) {
@@ -42,9 +42,9 @@ public class ComentarioDao {
                 int id = resultado.getInt("id");
                 String texto = resultado.getString("texto");
                 Data data = new Data(resultado.getTimestamp("data").getTime());
-                Pessoa pessoa = PessoaDao.buscarDadosPessoa(new Pessoa(resultado.getInt("idPessoa")));
+                Pessoa pessoa = PessoaDao.buscarDadosPessoa(resultado.getInt("idPessoa"));
 
-                listaComentario.add(new Comentario(id, data, texto, pessoa, new Publicacao(publicacaoEntidade.getId())));
+                listaComentario.add(new Comentario(id, data, texto, pessoa, new Publicacao(idPublicacao)));
 
             }
         } catch (SQLException ex) {
@@ -77,19 +77,20 @@ public class ComentarioDao {
         }
     }
 
-    public static Comentario buscarComentario(Comentario comentarioEntidade) {
+    public static Comentario buscarComentario(int id) {
+        Comentario comentarioEntidade = new Comentario();
         try {
             conexao = Conexao.getInstancia();
             String query = "SELECT * FROM comentario WHERE id= ?;";
             conexao.preparar(query);
-            conexao.getPs().setInt(1, comentarioEntidade.getId());
+            conexao.getPs().setInt(1, id);
             ResultSet resultado = conexao.executeQuery();
 
             if (resultado != null && resultado.next()) {
                 comentarioEntidade.setId(resultado.getInt("id"));
                 comentarioEntidade.setTexto(resultado.getString("texto"));
                 comentarioEntidade.setData(new Data(resultado.getTimestamp("data").getTime()));
-                comentarioEntidade.setIdPessoa(PessoaDao.buscarDadosPessoa(new Pessoa(resultado.getInt("idPessoa"))));
+                comentarioEntidade.setIdPessoa(PessoaDao.buscarDadosPessoa(resultado.getInt("idPessoa")));
                 comentarioEntidade.setIdPublicacao(new Publicacao(resultado.getInt("idpublicacao")));
             }
 
@@ -120,14 +121,14 @@ public class ComentarioDao {
         }
     }
 
-    public static void deletarComentario(Comentario comentarioEntidade) {
+    public static void deletarComentario(int id) {
 
         conexao = Conexao.getInstancia();
         String query = "delete FROM comentario WHERE id=?;";
 
         conexao.preparar(query);
         try {
-            conexao.getPs().setInt(1, comentarioEntidade.getId());
+            conexao.getPs().setInt(1, id);
 
             if (conexao.executeUpdate()) {
                 System.out.println("deletado!");

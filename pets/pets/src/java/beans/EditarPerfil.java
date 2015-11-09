@@ -9,6 +9,7 @@ import dao.CidadeDao;
 import dao.EnderecoDao;
 import dao.EstadoDao;
 import dao.PessoaDao;
+import entidades.Cidade;
 import entidades.Estado;
 import entidades.Pessoa;
 import java.util.ArrayList;
@@ -25,7 +26,6 @@ import javax.faces.bean.SessionScoped;
 public class EditarPerfil {
 
     private Pessoa pessoaEntidade;
-    private CidadeDao cidadeDao;
     private ArrayList<Estado> listaDeEstados;
     
     private EnderecoDao enderecoDao;
@@ -44,16 +44,17 @@ public class EditarPerfil {
 
     public String idEditar(int idEditar) {
         this.pessoaEntidade = new Pessoa(idEditar);
-        this.cidadeDao = new CidadeDao();
-       
+               
         this.listaDeEstados = EstadoDao.getListaEstados();
        
-        this.pessoaEntidade = PessoaDao.buscarDadosPessoa(pessoaEntidade);
-
-        
-        
+        this.pessoaEntidade = PessoaDao.buscarDadosPessoa(pessoaEntidade.getId());
 
         return "editarPerfil";
+    }
+    
+    public ArrayList<Cidade> buscarCidades()
+    {
+        return CidadeDao.buscarListaCidades(this.pessoaEntidade.getIdEndereco().getIdCidade().getEstadoUf().getUf());
     }
     
     
@@ -66,10 +67,7 @@ public class EditarPerfil {
         this.pessoaEntidade = pessoaEntidade;
     }
 
-    public CidadeDao getCidadeDao() {
-        return cidadeDao;
-    }
-
+   
     public ArrayList<Estado> getListaDeEstados() {
         return listaDeEstados;
     }

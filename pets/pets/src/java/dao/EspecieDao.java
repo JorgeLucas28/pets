@@ -49,12 +49,13 @@ public class EspecieDao {
         return listaEspecies;
     }
 
-    public static Especie buscarEspecie(Especie especieEntidade) {
+    public static Especie buscarEspecie(int  id) {
+        Especie especieEntidade = new Especie();
         try {
             conexao = Conexao.getInstancia();
             String query = "SELECT * FROM especie WHERE id= ?;";
             conexao.preparar(query);
-            conexao.getPs().setInt(1, especieEntidade.getId());
+            conexao.getPs().setInt(1, id);
             ResultSet resultado = conexao.executeQuery();
 
             if (resultado != null && resultado.next()) {
@@ -91,14 +92,14 @@ public class EspecieDao {
         }
     }
 
-    public static void deletarEspecie(Especie especieEntidade) {
+    public static void deletarEspecie(int id) {
 
         conexao = Conexao.getInstancia();
         String query = "delete FROM especie WHERE id=?;";
 
         conexao.preparar(query);
         try {
-            conexao.getPs().setInt(1, especieEntidade.getId());
+            conexao.getPs().setInt(1, id);
 
             if (conexao.executeUpdate()) {
                 System.out.println("deletado!");

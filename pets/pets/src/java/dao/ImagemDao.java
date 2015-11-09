@@ -23,7 +23,7 @@ public class ImagemDao {
     private static Conexao conexao;
     private static ArrayList<Imagem> listaImagens;
 
-    public static ArrayList<Imagem> buscarListaCidades(Publicacao publicacaoEntidade) {
+    public static ArrayList<Imagem> buscarListaImagens(int idPublicacao) {
         conexao = Conexao.getInstancia();
 
         try {
@@ -32,14 +32,14 @@ public class ImagemDao {
 
             String query = "SELECT * FROM imagem WHERE publicacao_id =?;";
             conexao.preparar(query);
-            conexao.getPs().setInt(1, publicacaoEntidade.getId());
+            conexao.getPs().setInt(1, idPublicacao);
             ResultSet resultado = conexao.executeQuery();
 
             while (resultado.next()) {
 
                 int id = resultado.getInt("id");
                 String caminho = resultado.getString("caminho");
-                listaImagens.add(new Imagem(id, caminho, new Publicacao(publicacaoEntidade.getId())));
+                listaImagens.add(new Imagem(id, caminho, new Publicacao(idPublicacao)));
 
             }
         } catch (SQLException ex) {
@@ -49,39 +49,35 @@ public class ImagemDao {
         return listaImagens;
     }
 
-    public static void inserirImagem(Imagem imagemEntidade) {
+    public static boolean inserirImagem(Imagem imagemEntidade) {
 
         conexao = Conexao.getInstancia();
+        boolean retorno = false;
         String query = "INSERT INTO imagem (caminho, `publicacao_id`) "
                 + "	VALUES (?, ?);";
-        
-       
 
         conexao.preparar(query);
         try {
-           
+
             conexao.getPs().setString(1, imagemEntidade.getCaminho());
             conexao.getPs().setInt(2, imagemEntidade.getIdPublicacao().getId());
 
-            if (conexao.executeUpdate()) {
-                System.out.println("Inserido!");
+            retorno = conexao.executeUpdate();
 
-            } else {
-                System.out.println("Faiou!");
-            }
         } catch (SQLException ex) {
             Logger.getLogger(ImagemDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return retorno;
     }
 
-    public static void deletarImagens(Imagem imagemEntidade) {
+    public static void deletarImagemPublicacao(int idPublicacao) {
 
         conexao = Conexao.getInstancia();
         String query = "delete FROM imagem WHERE publicacao_id=?;";
 
         conexao.preparar(query);
         try {
-            conexao.getPs().setInt(1, imagemEntidade.getIdPublicacao().getId());
+            conexao.getPs().setInt(1, idPublicacao);
 
             if (conexao.executeUpdate()) {
                 System.out.println("deletado!");
@@ -93,5 +89,43 @@ public class ImagemDao {
             Logger.getLogger(ImagemDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    public static void deletarImagem(int id) {
+
+        conexao = Conexao.getInstancia();
+        String query = "delete FROM imagem WHERE id=?;";
+
+        conexao.preparar(query);
+        try {
+            conexao.getPs().setInt(1, id);
+
+            if (conexao.executeUpdate()) {
+                System.out.println("deletado!");
+
+            } else {
+                System.out.println("Faiou!");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ImagemDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public static boolean updateImagem(Imagem imagemEntidade) {
+        boolean retorno = false;
+        ImagemDao.conexao = Conexao.getInstancia();
+        String sql = "UPDATE imagem SET caminho=? WHERE id=?;";
+        try {
+            ImagemDao.conexao.getPs().setString(1, imagemEntidade.getCaminho());
+            ImagemDao.conexao.getPs().setInt(2, imagemEntidade.getId());
+            
+            retorno  = ImagemDao.conexao.executeUpdate();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ImagemDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        return retorno;
     }
 }

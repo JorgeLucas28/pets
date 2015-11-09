@@ -29,7 +29,7 @@ and open the template in the editor.
                              <b:selectOneMenu id="estado" value="#{cidadeBeans.cidadeEntidade.estadoUf.uf}">
 
                                     <f:ajax execute="estado"  render="cidade"  />
-                                    <f:selectItems value="#{cidadeBeans.estadoDao.listaEstados}"
+                                    <f:selectItems value="#{cidadeBeans.buscarListaEstados()}"
                                                    var="estado" itemLabel="#{estado.nome}"
                                                    itemValue="#{estado.uf}" /> 
                                 </b:selectOneMenu>

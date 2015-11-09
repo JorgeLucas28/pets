@@ -21,24 +21,23 @@ import javax.faces.bean.SessionScoped;
 public class CidadeBeans {
 
     private Cidade cidadeEntidade;
-    private EstadoDao estadoDao;
     private Estado estadoEntidade;
     
     private String msgNomeCidade;
 
     public CidadeBeans() {
-        this.estadoDao = new EstadoDao();
+       
         this.cidadeEntidade = new Cidade();
         this.estadoEntidade = new Estado();
 
         this.cidadeEntidade.setEstadoUf(new Estado("TO"));
 
-        this.estadoEntidade.setCidadeCollection(CidadeDao.buscarListaCidades(cidadeEntidade));
+        this.estadoEntidade.setCidadeCollection(CidadeDao.buscarListaCidades(cidadeEntidade.getEstadoUf().getUf()));
 
        
         this.msgNomeCidade = "";
     }
-
+//metodo para add uma cidade no banco de dados
     public void inserir() {
         if (!this.cidadeEntidade.getNome().trim().equalsIgnoreCase("")) {
             CidadeDao.inserirCidade(cidadeEntidade);
@@ -50,7 +49,7 @@ public class CidadeBeans {
         }
 
     }
-
+//metodo para atualizaer as informações de uma cidade
     public void editar() {
         if (!this.cidadeEntidade.getNome().trim().equalsIgnoreCase("")) {
             CidadeDao.updateCidade(cidadeEntidade);
@@ -61,19 +60,25 @@ public class CidadeBeans {
             this.msgNomeCidade = "Preencha o campo nome";
         }
     }
-
+    
+    //busca as cidades de um determinado estado
     public void buscar() {
 
-        this.estadoEntidade.setCidadeCollection(CidadeDao.buscarListaCidades(cidadeEntidade));
+        this.estadoEntidade.setCidadeCollection(CidadeDao.buscarListaCidades(cidadeEntidade.getEstadoUf().getUf()));
 
     }
-
+    //retorna todos os estados do banco 
+    public ArrayList<Estado> buscarListaEstados()
+    {
+        return EstadoDao.getListaEstados();
+    }
+    //metodo para setar o id da cidade que será editada
     public String setIdEditar(Cidade cidade) {
 
         this.cidadeEntidade = cidade;
         return "editarCidade";
     }
-
+    //metodo para chamar a view de reponsavel por add cidades no banco de dados
     public String add() {
         this.cidadeEntidade = new Cidade();
         return "addCidade";
@@ -87,9 +92,7 @@ public class CidadeBeans {
         this.cidadeEntidade = cidadeEntidade;
     }
 
-    public EstadoDao getEstadoDao() {
-        return estadoDao;
-    }
+   
 
     public Estado getEstadoEntidade() {
         return estadoEntidade;

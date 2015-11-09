@@ -26,7 +26,7 @@ and open the template in the editor.
                         <b:selectOneMenu id="estado" value="#{cidadeBeans.cidadeEntidade.estadoUf.uf}">
 
                            
-                            <f:selectItems value="#{cidadeBeans.estadoDao.listaEstados}"
+                            <f:selectItems value="#{cidadeBeans.buscarListaEstados()}"
                                            var="estado" itemLabel="#{estado.nome}"
                                            itemValue="#{estado.uf}" /> 
                         </b:selectOneMenu>
@@ -42,9 +42,9 @@ and open the template in the editor.
 
 
                     <b:well>
-                        <h:dataTable  id="tabela" value="#{cidadeBeans.estadoEntidade.cidadeCollection}" var="c" border="1" width="100%" >
-                            <h:column >
-                                <f:facet name="header" >Nome</f:facet>
+                        <h:dataTable style="text-align:center;" id="tabela" value="#{cidadeBeans.estadoEntidade.cidadeCollection}" var="c" border="1" width="100%" >
+                            <h:column  >
+                                <f:facet  name="header"  >Nome</f:facet>
                                     #{c.nome}            
                             </h:column>
 

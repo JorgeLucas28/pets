@@ -22,7 +22,9 @@ public class ArquivoModel {
 
     public String camihoArquivo() {
         
-        return (caminho + System.nanoTime() + this.getArquivo().getSubmittedFileName().substring(this.getArquivo().getSubmittedFileName().lastIndexOf("."), this.getArquivo().getSubmittedFileName().length()));
+        return (caminho + System.nanoTime() + this.getArquivo().getSubmittedFileName().substring(
+                this.getArquivo().getSubmittedFileName().lastIndexOf("."), 
+                this.getArquivo().getSubmittedFileName().length()));
 
     }
 

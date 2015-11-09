@@ -21,8 +21,9 @@ and open the template in the editor.
                         <h:panelGrid columns="3">
 
                             <h:outputLabel>titulo:</h:outputLabel>                            
-                            <b:inputText id="titulo" value="#{publicacaoBeans.publicacao.titulo}"  required="true"/>
-                            <h:outputLabel></h:outputLabel>
+                            <b:inputText id="titulo" value="#{publicacaoBeans.publicacao.titulo}"  required="true"
+                                         requiredMessage="campo obigatório"/>
+                            <h:message for="titulo"></h:message>
 
 
 
@@ -54,8 +55,13 @@ and open the template in the editor.
 
 
                             <h:outputLabel>qtd</h:outputLabel>
-                            <b:inputText id="qrd" value="#{publicacaoBeans.publicacao.qtd}" required="true"></b:inputText>
-                            <h:outputLabel></h:outputLabel>
+                            <b:inputText id="qtd" value="#{publicacaoBeans.publicacao.qtd}" required="true"
+                                         requiredMessage="campo obrigatório"
+                                         validatorMessage="a quantidade dever ser maior que 0">
+
+                                <f:validateDoubleRange minimum="1" />
+                            </b:inputText>
+                            <h:message for="qtd"></h:message>
 
                             <h:outputLabel>tipo:</h:outputLabel>
                             <h:selectOneMenu id="tipo" value="#{publicacaoBeans.publicacao.idTipoPublicacao.id}"  required="true">
@@ -70,11 +76,11 @@ and open the template in the editor.
                             <h:outputLabel></h:outputLabel>
 
                             <h:outputLabel>valor</h:outputLabel>
-                            <b:inputText id="valor" value="#{publicacaoBeans.publicacao.valor}" required="true"></b:inputText>
-                            
+                            <b:inputText id="valor" value="#{publicacaoBeans.publicacao.valor}" required="true"
+                                         requiredMessage="campo obrigatório" >
+                            </b:inputText>
+                            <h:message for="valor" ></h:message>
 
-
-                            <h:messages id="msg" style="color: red;"/>
                             <h:outputLabel value="imagem" for="arquivo" />
                             <h:inputFile id="arquivo" value="#{publicacaoBeans.arquivoModel.arquivo}" 
                                          required="true" label="imagem" 
@@ -83,20 +89,21 @@ and open the template in the editor.
 
 
                             <h:outputLabel>descrição</h:outputLabel>
-                            <h:inputTextarea id="descricao" value="#{publicacaoBeans.publicacao.descricao}" required="true"/>
-                            <h:outputLabel></h:outputLabel>
-                            
+                            <h:inputTextarea id="descricao" value="#{publicacaoBeans.publicacao.descricao}" required="true"
+                                             requiredMessage="campo obrigatório"/>
+                            <h:message for="descricao" ></h:message>
+
                             <h:outputLabel></h:outputLabel>
                             <h:commandButton value="ok" action="#{publicacaoBeans.publicar()}" />
                             <h:outputLabel></h:outputLabel>
 
-<!--                            <h:outputLabel></h:outputLabel>
-                            <b:commandButton value="ok" action="#"/>
-                            <h:outputLabel></h:outputLabel>-->
-<!--
-                            <h:link value="voltar"  outcome="perfil"/>                    
-                            <h:outputLabel></h:outputLabel>
-                            <h:outputLabel></h:outputLabel>-->
+                            <!--                            <h:outputLabel></h:outputLabel>
+                                                        <b:commandButton value="ok" action="#"/>
+                                                        <h:outputLabel></h:outputLabel>-->
+                            <!--
+                                                        <h:link value="voltar"  outcome="perfil"/>                    
+                                                        <h:outputLabel></h:outputLabel>
+                                                        <h:outputLabel></h:outputLabel>-->
 
 
 

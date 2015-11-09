@@ -18,30 +18,35 @@
                     <h:form>
                         <fieldset>
                             <legend>Entrar</legend>
-                            <h:panelGrid columns="2" >
+                            <h:panelGrid columns="3" >
 
 
                                 <h:outputLabel>Login:</h:outputLabel>
-                                <b:inputText id="login" value="#{autenticar.usuario.email}"  required="true" title="digite o login">
+                                <b:inputText id="login" value="#{autenticar.usuario.email}"
+                                             required="true" requiredMessage="Campo obrigatório">
                                     <f:facet name="prepend">
                                         <b:icon name="user" />
                                     </f:facet>
                                 </b:inputText>
-
+                                 <h:message for="login"></h:message>
 
 
                                 <h:outputLabel>Senha:</h:outputLabel>
-                                <b:inputSecret id="senha" value="#{autenticar.login.senha}" required="true">                 
+                                <b:inputSecret id="senha" value="#{autenticar.login.senha}"
+                                                required="true" requiredMessage="Campo obrigatório">                 
                                     <f:facet name="prepend">
                                         <b:iconAwesome name="key" />
                                     </f:facet>
                                 </b:inputSecret>
+                                 <h:message for="senha"></h:message>
+
 
 
                                  <b:column span="0">
                                      <b:commandButton value="Entrar" action="#{autenticar.logar()}"  update="form:inform infoshow" id="acb"  look="success" />
                                      </b:column>
 
+                                <h:outputLabel></h:outputLabel>
                                 <h:outputLabel></h:outputLabel>
                                 <h:outputLabel id="msg" value="#{autenticar.msg}"></h:outputLabel>
                             </h:panelGrid>

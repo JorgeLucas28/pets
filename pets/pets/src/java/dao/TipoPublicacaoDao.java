@@ -31,8 +31,7 @@ public class TipoPublicacaoDao {
 
             while (resultado.next()) {
                 int id = resultado.getInt("id");
-                String nome = resultado.getString("tipo");                
-
+                String nome = resultado.getString("tipo");
                 listaTipo.add(new TipoPublicacao(id, nome));
             }
         } catch (SQLException ex) {
@@ -42,12 +41,13 @@ public class TipoPublicacaoDao {
         return listaTipo;
     }
 
-    public static TipoPublicacao buscarTipo(TipoPublicacao tipoPublicacaoEntidade) {
+    public static TipoPublicacao buscarTipo(int id) {
+        TipoPublicacao tipoPublicacaoEntidade = new TipoPublicacao();
         try {
             conexao = Conexao.getInstancia();
             String query = "SELECT * FROM tipopublicacao WHERE id= ?;";
             conexao.preparar(query);
-            conexao.getPs().setInt(1, tipoPublicacaoEntidade.getId());
+            conexao.getPs().setInt(1, id);
             ResultSet resultado = conexao.executeQuery();
 
             if (resultado != null && resultado.next()) {

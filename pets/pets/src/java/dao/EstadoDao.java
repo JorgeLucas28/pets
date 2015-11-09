@@ -48,21 +48,22 @@ public class EstadoDao {
     /*
      @return Estado
      */
-    public static Estado buscarEstado(Estado estadoEntidade) {
+    public static Estado buscarEstado(String uf) {
+        Estado estadoEntidade = new Estado();
         try {
              EstadoDao.conexao = Conexao.getInstancia();
              
-            String query = "select * from cidade WHERE uf=?;";
+            String query = "select * from estado WHERE uf=?;";
             EstadoDao.conexao.preparar(query);
 
-            EstadoDao.conexao.getPs().setString(1, estadoEntidade.getUf());
+            EstadoDao.conexao.getPs().setString(1, uf);
 
             ResultSet resultado = EstadoDao.conexao.executeQuery();
 
             if (resultado != null && resultado.next()) {
 
                 estadoEntidade.setNome(resultado.getString("nome"));
-                estadoEntidade.setUf(estadoEntidade.getUf());
+                estadoEntidade.setUf(uf);
 
             }
         } catch (SQLException ex) {

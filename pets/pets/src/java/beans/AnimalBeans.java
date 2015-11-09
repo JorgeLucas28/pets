@@ -61,7 +61,7 @@ public class AnimalBeans {
 
     public void buscar() {
         
-        this.especieEntidade.setListaRaca(RacaDao.buscarListaRaca(racaEntidade));
+        this.especieEntidade.setListaRaca(RacaDao.buscarListaRaca(racaEntidade.getIdEspecie().getId()));
         
     }
 
