@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="templateAdmin.xhtml">
+        <ui:define name="corpo">
+           
+            <b:container>
+                <legend></legend>
+                 <legend>Raças</legend>
+                  
+                <h:form>
+                    
+                    <b:panelGrid colSpans="1,5,6">
+
+                    <h:outputLabel>Especie</h:outputLabel>
+                    <b:selectOneMenu id="especie" value="#{AnimalBeans.racaEntidade.especie.id}">
+
+                           
+                        <f:selectItems value="#{AnimalBeans.listaEspecies}"
+                                           var="e" itemLabel="#{e.nome}"
+                                           itemValue="#{e.id}" /> 
+                        </b:selectOneMenu>
+                    <b:commandButton value="ok" action="#{AnimalBeans.buscar()}" look="primary"/>
+                  
+                    </b:panelGrid>
+
+
+                </h:form>
+
+                <b:container>
+
+
+
+                    <b:well>
+                        <h:dataTable  id="tabela" value="#{AnimalBeans.especieEntidade.listaRaca}" var="raca" border="1" width="100%" >
+                          
+                            <h:column>
+                                <f:facet name="header">Id</f:facet>
+                                    #{raca.id}            
+                            </h:column>
+                            
+                            <h:column >
+                                <f:facet name="header" >Nome</f:facet>
+                                    #{raca.nome}            
+                            </h:column>
+
+                           
+
+                            <h:column>
+                                <f:facet name="header">opções</f:facet>
+                                <h:form>
+                                    <b:commandButton value="editar" action="#{AnimalBeans.UpdateRaca(raca)}" icon="glyphicon glyphicon-pencil" look="info"/>   
+                                      
+                                </h:form>
+
+                            </h:column>
+
+
+
+
+                        </h:dataTable>
+
+                        <h:form>
+                            <b:commandButton value="add Raca" action="#{AnimalBeans.addRaca()}" look="primary"/>
+                        </h:form>
+                    </b:well>
+
+
+
+                </b:container>
+            </b:container>
+        </ui:define>
+    </ui:composition>
+</html>
+

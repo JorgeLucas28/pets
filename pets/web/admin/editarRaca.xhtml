@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="templateAdmin.xhtml">
+        <ui:define name="corpo">
+           
+            <h:form>
+                <b:well class="center">
+                    <fieldset>
+                        <legend>editar Raça</legend>
+                        <h:panelGrid columns="3">
+
+                            <h:outputLabel>Raça:</h:outputLabel>                            
+                            <b:inputText id="nome" value="#{AnimalBeans.racaEntidade.nome}"/>
+                            <h:outputLabel></h:outputLabel>
+                            
+         
+                            
+                              <h:outputLabel>Especie</h:outputLabel>
+                             <b:selectOneMenu id="especie" value="#{AnimalBeans.racaEntidade.especie.id}">
+
+                                   
+                                 <f:selectItems value="#{AnimalBeans.listaEspecies}"
+                                                var="especie" itemLabel="#{especie.nome}"
+                                                itemValue="#{especie.id}" /> 
+                                </b:selectOneMenu>
+                                <h:outputLabel></h:outputLabel>
+
+                                <h:outputLabel></h:outputLabel>
+                                <h:outputLabel></h:outputLabel>
+                                <h:outputLabel></h:outputLabel>
+
+                               
+                            <h:outputLabel></h:outputLabel>
+                            <b:commandButton value="ok" action="#{AnimalBeans.editarRaca()}" look="primary"/>
+                            <h:outputLabel></h:outputLabel>
+
+                            <h:link value="voltar"  outcome="listarRaca"/>                    
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel></h:outputLabel>
+
+                            
+                            
+                        </h:panelGrid>
+                    </fieldset>
+                </b:well>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:b="http://bootsfaces.net/ui"
+       xmlns:f="http://xmlns.jcp.org/jsf/core"
+       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="templateUsuario.xhtml">
+        <ui:define name="corpo">
+            <h1>Publicação</h1>
+            <h:form id="form" enctype="multipart/form-data">
+                <b:well class="center">
+                    <fieldset>
+                        <legend>dados da publicação</legend>
+                        <h:panelGrid columns="3">
+
+                            <h:outputLabel>titulo:</h:outputLabel>                            
+                            <b:inputText id="titulo" value="#{publicacaoBeans.publicacao.titulo}"  required="true"
+                                         requiredMessage="campo obigatório"/>
+                            <h:message for="titulo"></h:message>
+
+
+
+                            <h:outputLabel>especie:</h:outputLabel>
+                            <h:selectOneMenu id="especie" value="#{publicacaoBeans.publicacao.raca.especie.id}" required="true">
+
+                                <f:ajax execute="especie"  render="raca"  />
+                                <f:selectItems value="#{publicacaoBeans.busrcarListaEspecies()}"
+                                               var="esp" itemLabel="#{esp.nome}"
+                                               itemValue="#{esp.id}" /> 
+                            </h:selectOneMenu>
+                            <h:outputLabel></h:outputLabel>
+
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel></h:outputLabel>
+
+                            <h:outputLabel>raça:</h:outputLabel>
+                            <h:selectOneMenu id="raca" value="#{publicacaoBeans.publicacao.raca.id}"  required="true">
+                                <f:selectItems value="#{publicacaoBeans.busrcarListaRacas()}"
+                                               var="r" itemLabel="#{r.nome}"
+                                               itemValue="#{r.id}"  />
+                            </h:selectOneMenu>
+                            <h:outputLabel></h:outputLabel>
+
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel></h:outputLabel>
+
+
+                            <h:outputLabel>qtd</h:outputLabel>
+                            <b:inputText id="qtd" value="#{publicacaoBeans.publicacao.qtd}" required="true"
+                                         requiredMessage="campo obrigatório"
+                                         validatorMessage="a quantidade dever ser maior que 0">
+
+                                <f:validateDoubleRange minimum="1" />
+                            </b:inputText>
+                            <h:message for="qtd"></h:message>
+
+                            <h:outputLabel>tipo:</h:outputLabel>
+                            <h:selectOneMenu id="tipo" value="#{publicacaoBeans.publicacao.tipoPublicacao.id}"  required="true">
+                                <f:selectItems value="#{publicacaoBeans.busrcarListaTipos()}"
+                                               var="t" itemLabel="#{t.tipo}"
+                                               itemValue="#{t.id}" />
+                            </h:selectOneMenu>
+                            <h:outputLabel></h:outputLabel>
+
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel></h:outputLabel>
+
+                            <h:outputLabel>valor</h:outputLabel>
+                            <b:inputText id="valor" value="#{publicacaoBeans.publicacao.valor}" required="true"
+                                         requiredMessage="campo obrigatório" >
+                            </b:inputText>
+                            <h:message for="valor" ></h:message>
+
+
+
+
+
+                            <h:outputLabel value="imagem"  />
+                            <h:inputFile id="arquivo" value="#{publicacaoBeans.vetorArquivos[0].arquivo}" 
+                                         required="true" label="imagem" 
+                                         requiredMessage="Selecione o uma imagem para a publicação!" />
+                            <h:outputLabel></h:outputLabel>
+                            <h:message for="arquivo" ></h:message>
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel></h:outputLabel>
+                            
+                            
+                            <h:outputLabel value="imagem"  />
+                            <h:inputFile id="arquivo2" value="#{publicacaoBeans.vetorArquivos[1].arquivo}" 
+                                         label="imagem" 
+                                         requiredMessage="Selecione o uma imagem para a publicação!" />
+                            <h:outputLabel></h:outputLabel>
+                            <h:message for="arquivo2" ></h:message>
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel></h:outputLabel>
+                            
+                            
+                            <h:outputLabel value="imagem"  />
+                            <h:inputFile id="arquivo3" value="#{publicacaoBeans.vetorArquivos[2].arquivo}" 
+                                          label="imagem" 
+                                         requiredMessage="Selecione o uma imagem para a publicação!" />
+                            <h:outputLabel></h:outputLabel>
+                            <h:message for="arquivo3" ></h:message>
+                            <h:outputLabel></h:outputLabel>
+                            <h:outputLabel></h:outputLabel>
+
+
+                            <h:outputLabel>descrição</h:outputLabel>
+                            <h:inputTextarea id="descricao" value="#{publicacaoBeans.publicacao.descricao}" required="true"
+                                             requiredMessage="campo obrigatório"/>
+                            <h:message for="descricao" ></h:message>
+
+                            <h:outputLabel></h:outputLabel>
+                            <h:commandButton value="ok" action="#{publicacaoBeans.publicar()}" />
+                            <h:outputLabel></h:outputLabel>
+
+
+
+
+                        </h:panelGrid>
+                    </fieldset>
+                </b:well>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

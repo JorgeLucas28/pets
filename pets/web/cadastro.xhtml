@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="template/template.xhtml">
+        <ui:define name="corpo">
+            <title>Cadastro</title>
+            <b:container>
+                
+                <b:well>
+            <h:form>
+                <fieldset>
+                    <legend>Cadastro de usuário</legend>
+                    <h:panelGrid columns="3">
+
+                        <h:outputLabel>nome</h:outputLabel>
+                        <b:inputText id="nome" value="#{cadastroBeans.pessoa.nome}" 
+                                     required="true" 
+                                     requiredMessage="digite seu nome"
+                                     >
+
+                        </b:inputText>
+                        <h:message for="nome"></h:message>
+
+                        <h:outputLabel>email</h:outputLabel>
+                        <b:inputText id="email" value="#{cadastroBeans.pessoa.email}" 
+                                     required="true"
+                                     requiredMessage="digite seu email">
+                            <f:passThroughAttribute name="type" value="email"/>
+                            <f:passThroughAttribute name="placeholder" value="digite seu email"/>
+                        </b:inputText>   
+                        <h:message for="email"></h:message>
+
+                        <h:outputLabel>senha</h:outputLabel>
+                        <b:inputSecret id="senha" value="#{cadastroBeans.pessoa.login.senha}"
+                                       required="true"
+                                       requiredMessage="digite uma senha">
+                        </b:inputSecret>                      
+                        <h:message for="senha"></h:message>
+
+                        <h:outputLabel>ceular</h:outputLabel>
+                        <b:inputText id="telefone" value="#{cadastroBeans.pessoa.listaDeTelefones.get(0).numero}"
+                                     required="true" 
+                                     requiredMessage="digite o seu telefone"
+
+                                     >
+
+                        </b:inputText>
+                        <h:message for="telefone"></h:message>
+
+                        <h:outputLabel>estado</h:outputLabel>
+                        <h:selectOneMenu id="estado" value="#{cadastroBeans.pessoa.endereco.cidade.estado.uf}"
+                                         required="true"
+                                         requiredMessage="selecione o estado">
+
+                            <f:ajax execute="estado"  render="cidade"  />
+                            <f:selectItems value="#{cadastroBeans.listaDeEstados()}"
+                                           var="estado" itemLabel="#{estado.nome}"
+                                           itemValue="#{estado.uf}" /> 
+
+                        </h:selectOneMenu>
+                        <h:message for="estado"></h:message>
+
+                        <h:outputLabel></h:outputLabel>
+                        <h:outputLabel></h:outputLabel>
+                        <h:outputLabel></h:outputLabel>
+
+                        <h:outputLabel>cidade</h:outputLabel>
+                        <h:selectOneMenu id="cidade" value="#{cadastroBeans.idCidade}">
+
+                            <f:selectItems value="#{cadastroBeans.listaDeCidaes()}"
+                                           var="c" itemLabel="#{c.nome}"
+                                           itemValue="#{c.id}" />
+                        </h:selectOneMenu>
+                        <h:outputLabel></h:outputLabel>
+
+                        <h:outputLabel></h:outputLabel>
+                        <h:outputLabel></h:outputLabel>
+                        <h:outputLabel></h:outputLabel>
+
+                        <h:outputLabel>cep</h:outputLabel>
+                        <b:inputText id="cep" value="#{cadastroBeans.pessoa.endereco.cep}" 
+                                     required="true"
+                                     requiredMessage="digite o cep"
+                                     validatorMessage="o cep deve ser no formato">
+                            <f:validateRegex pattern="^[0-9]{2}[0-9]{3}[0-9]{3}"/>
+                        </b:inputText>
+                        <h:message for="cep"></h:message>
+
+                        <h:outputLabel>logradouro</h:outputLabel>
+                        <b:inputText id="longradouro" value="#{cadastroBeans.pessoa.endereco.logradouro}" required="true"
+                                     requiredMessage="digite o logradouro">
+                        </b:inputText>
+                        <h:message for="longradouro"></h:message>
+
+                        <h:outputLabel>bairro</h:outputLabel>
+                        <b:inputText id="bairro" value="#{cadastroBeans.pessoa.endereco.bairro}" required="true"
+                                     requiredMessage="digite o nome bairro">
+                        </b:inputText>
+                        <h:message for="bairro"></h:message>
+
+                        <h:outputLabel>complemento</h:outputLabel>
+                        <b:inputText id="complemento" value="#{cadastroBeans.pessoa.endereco.complemento}" required="true"
+                                     requiredMessage="digite o complento">
+                        </b:inputText>
+                        <h:message for="complemento"></h:message>
+
+                        <h:outputLabel>numero</h:outputLabel>
+                        <b:inputText id="numero" value="#{cadastroBeans.pessoa.endereco.numero}" required="true"
+                                     requiredMessage="digite o numero de sua residência">
+                        </b:inputText>
+                        <h:message for="numero"></h:message>
+
+                        <h:outputLabel></h:outputLabel>
+                        <h:outputLabel></h:outputLabel>
+
+                         <b:column span="0">
+                             <b:commandButton value="Cadastrar" action="#{cadastroBeans.cadastrar()}"  update="form:inform infoshow" id="acb"  look="success" />
+                             </b:column>
+                        <h:outputLabel></h:outputLabel>
+                        
+                        <h:link value="voltar"  outcome="inicio"/>                    
+                        <h:outputLabel></h:outputLabel>
+                        <h:outputLabel></h:outputLabel>
+
+
+                    </h:panelGrid> 
+                </fieldset>
+            </h:form>
+                    </b:well>
+            </b:container>
+
+        </ui:define>
+
+
+
+    </ui:composition>
+
+
+
+</html>

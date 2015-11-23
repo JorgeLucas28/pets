@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        
+        <ui:insert name="menu">
+            <b:navBar inverse="true">
+            <b:navbarLinks>
+                <b:navLink value="inicio" outcome="principal"></b:navLink>
+                <b:navLink value="publicar" outcome="publicacao"></b:navLink>
+                <b:navLink value="perfil" outcome="perfil"></b:navLink>
+            </b:navbarLinks>
+                <b:navLink  tooltip="sair do sistema" value="sair" outcome="#{autenticar.logout}"></b:navLink>
+        </b:navBar>
+        </ui:insert>
+    </h:head>
+    <h:body>
+        
+        <ui:insert name="corpo">
+            TESTE DE TEMPLATE
+        </ui:insert>
+        <ui:insert name="rodape">
+           <br/><br/><br/><br/> © jorge lucas <br/>
+            <h:outputLabel value="#{autenticar.data.dataCompletaFormatada}"></h:outputLabel> <br/>
+        </ui:insert>
+    </h:body>
+</html>
+
