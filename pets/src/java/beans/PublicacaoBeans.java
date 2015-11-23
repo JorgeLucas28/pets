@@ -90,6 +90,19 @@ public class PublicacaoBeans {
         PublicacaoDao.updatePublicacao(this.publicacao);
         return "minhasPublicacoes";
     }
+    
+    public String voltarMinhasPublicacoes()
+    {
+        this.publicacao.setPessoa(this.buscarPessoaSessao());
+        return "minhasPublicacoes";
+    }
+    
+    public String verPublicacao(int id)
+    {
+        this.publicacao = PublicacaoDao.buscarPublicacao(id);
+        this.publicacao.carregarImagens();
+        return "verPublicacao";
+    }
 
     public void excluir(int id) {
         PublicacaoDao.desativar(id);
@@ -110,6 +123,7 @@ public class PublicacaoBeans {
 
     //metodo para buscar as publicações de um usuário no babco de dados
     public ArrayList<Publicacao> buscarTodasPublicacoesDoUsuario() {
+        this.publicacao.getPessoa().carregarTelefones();
         return PublicacaoDao.buscarTodasPublicacoesDoUsuario(this.publicacao.getPessoa().getId());
     }
 

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:composition template="templateUsuario.xhtml">
+        <ui:define name="corpo">
+            <b:alert></b:alert>
+
+
+
+            <b:container>
+                <b:well class="center">
+
+                    <h:outputLabel style="color: blue;">Titulo: </h:outputLabel><br/>
+                    <h:outputLabel>#{publicacaoBeans.publicacao.titulo}</h:outputLabel> <br/>
+                    <h:outputLabel style="color: blue;">Descrição: </h:outputLabel><br/>
+                    <h:outputLabel>#{publicacaoBeans.publicacao.descricao}</h:outputLabel> <br/>
+
+                    <ui:repeat var="i" value="#{publicacaoBeans.publicacao.listaDeImagens}" varStatus="status">
+
+                        <h:graphicImage url="#{i.caminho}"></h:graphicImage>
+
+
+                    </ui:repeat>
+
+
+                    <br/>
+                    <h:outputLabel style="color: blue;">Data:</h:outputLabel><br/>
+                    <h:outputLabel>#{publicacaoBeans.publicacao.data.dataFormatada}</h:outputLabel> <br/>
+
+                    <h:outputLabel style="color: blue;">Especie:</h:outputLabel><br/>
+                    <h:outputLabel>#{publicacaoBeans.publicacao.raca.especie.nome}</h:outputLabel> <br/>
+
+
+                    <h:outputLabel style="color: blue;">Raça:</h:outputLabel><br/>
+                    <h:outputLabel>#{publicacaoBeans.publicacao.raca.nome}</h:outputLabel> <br/>
+
+                    <h:outputLabel style="color: blue;">Quantidade:</h:outputLabel><br/>
+                    <h:outputLabel>#{publicacaoBeans.publicacao.qtd}</h:outputLabel> <br/>
+
+                    <h:outputLabel style="color: blue;">Tipo:</h:outputLabel><br/>
+                    <h:outputLabel>#{publicacaoBeans.publicacao.tipoPublicacao.tipo}</h:outputLabel> <br/>
+
+                    <h:outputLabel style="color: blue;">Valor:</h:outputLabel><br/>
+                    <h:outputLabel>#{publicacaoBeans.publicacao.valor}</h:outputLabel> <br/>
+
+                    <h:outputLabel style="color: blue;">Publicado por:</h:outputLabel><br/>
+                    <h:outputLabel>#{publicacaoBeans.publicacao.pessoa.nome}</h:outputLabel> <br/>
+
+                    <h:outputLabel style="color: blue;">contatos:</h:outputLabel><br/>
+                    <ui:repeat var="t" value="#{p.pessoa.listaDeTelefones}" varStatus="status">
+
+                        <h:outputLabel>#{t.numero}</h:outputLabel><br/>
+                    </ui:repeat>
+                    <h:outputLabel>#{publicacaoBeans.publicacao.pessoa.email}</h:outputLabel> <br/>
+
+
+                    <h:outputLabel></h:outputLabel>
+                    <h:outputLabel></h:outputLabel>
+                    <h:outputLabel></h:outputLabel>
+
+                    <h:form>
+
+                     <b:commandButton value="voltar" action="#{publicacaoBeans.voltarMinhasPublicacoes()}" icon="glyphicon glyphicon-eye-open" look="success"/>
+                     
+                     </h:form>
+                </b:well>
+
+
+            </b:container>
+
+
+
+
+        </ui:define>
+    </ui:composition>
+</html>
+
+
+

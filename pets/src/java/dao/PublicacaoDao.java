@@ -63,6 +63,7 @@ public class PublicacaoDao {
                 publicacaoEntidade.setPessoa(PessoaDao.buscarDadosPessoa(resultado.getInt("idpessoa")));
                 publicacaoEntidade.setEstadoDeAtivacao(resultado.getInt("ativado"));
                 publicacaoEntidade.carregarImagens();
+                publicacaoEntidade.getPessoa().carregarTelefones();
 
                 listaPublicacao.add(publicacaoEntidade);
 

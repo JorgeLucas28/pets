@@ -19,9 +19,9 @@ and open the template in the editor.
                 <b:container>
                     <b:well class="center">
 
-                        <h:outputLabel style="color: blue;">Titulo: </h:outputLabel>
+                        <h:outputLabel style="color: blue;">Titulo: </h:outputLabel><br/>
                         <h:outputLabel>#{p.titulo}</h:outputLabel> <br/>
-                        <h:outputLabel style="color: blue;">Descrição: </h:outputLabel>
+                        <h:outputLabel style="color: blue;">Descrição: </h:outputLabel><br/>
                         <h:outputLabel>#{p.descricao}</h:outputLabel> <br/>
 
                         <ui:repeat var="i" value="#{p.listaDeImagens}" varStatus="status">
@@ -33,11 +33,36 @@ and open the template in the editor.
 
 
                         <br/>
-                        <h:outputLabel style="color: blue;">Data:</h:outputLabel>
+                        <h:outputLabel style="color: blue;">Data:</h:outputLabel><br/>
                         <h:outputLabel>#{p.data.dataFormatada}</h:outputLabel> <br/>
+                        
+                         <h:outputLabel style="color: blue;">Especie:</h:outputLabel><br/>
+                         <h:outputLabel>#{p.raca.especie.nome}</h:outputLabel> <br/>
+                        
+                        
+                        <h:outputLabel style="color: blue;">Raça:</h:outputLabel><br/>
+                        <h:outputLabel>#{p.raca.nome}</h:outputLabel> <br/>
 
-                        <h:outputLabel style="color: blue;">Quantidade:</h:outputLabel>
+                        <h:outputLabel style="color: blue;">Quantidade:</h:outputLabel><br/>
                         <h:outputLabel>#{p.qtd}</h:outputLabel> <br/>
+                        
+                        <h:outputLabel style="color: blue;">Tipo:</h:outputLabel><br/>
+                        <h:outputLabel>#{p.tipoPublicacao.tipo}</h:outputLabel> <br/>
+                        
+                        <h:outputLabel style="color: blue;">Valor:</h:outputLabel><br/>
+                        <h:outputLabel>#{p.valor}</h:outputLabel> <br/>
+                        
+                        <h:outputLabel style="color: blue;">Publicado por:</h:outputLabel><br/>
+                        <h:outputLabel>#{p.pessoa.nome}</h:outputLabel> <br/>
+                        
+                         <h:outputLabel style="color: blue;">contatos:</h:outputLabel><br/>
+                         <ui:repeat var="t" value="#{p.pessoa.listaDeTelefones}" varStatus="status">
+
+                             <h:outputLabel>#{t.numero}</h:outputLabel><br/>
+                        </ui:repeat>
+                         <h:outputLabel>#{p.pessoa.email}</h:outputLabel> <br/>
+                        
+                       
 
 
                     </b:well>
